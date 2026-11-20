@@ -1,0 +1,356 @@
+﻿Build1=Default,com.sithaso.mpacharts
+File1=clock.png
+FileGroup1=Default Group
+Group=Default Group
+Library1=core
+Library2=sithasompacharts
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'
+Module1=frmChallenge01
+Module10=frmExample004
+Module100=frmExample094
+Module101=frmExample095
+Module102=frmExample096
+Module103=frmExample097
+Module104=frmExample098
+Module105=frmExample099
+Module106=frmExample100
+Module107=frmExample101
+Module108=frmExample102
+Module109=frmExample103
+Module11=frmExample005
+Module110=frmExample104
+Module111=frmExample105
+Module112=frmExample106
+Module113=frmExample107
+Module114=frmExample108
+Module115=frmExample109
+Module116=frmExample110
+Module117=frmExample111
+Module118=frmExample112
+Module119=frmExample113
+Module12=frmExample006
+Module120=frmExample114
+Module121=frmExample115
+Module122=frmExample116
+Module123=frmExample117
+Module124=frmExample118
+Module125=frmExample119
+Module126=frmExample120
+Module127=frmExample121
+Module128=frmExample122
+Module129=frmExample123
+Module13=frmExample007
+Module130=frmExample124
+Module131=frmExample125
+Module132=frmExample126
+Module133=frmExample127
+Module14=frmExample008
+Module15=frmExample009
+Module16=frmExample010
+Module17=frmExample011
+Module18=frmExample012
+Module19=frmExample013
+Module2=frmChallenge02
+Module20=frmExample014
+Module21=frmExample015
+Module22=frmExample016
+Module23=frmExample017
+Module24=frmExample018
+Module25=frmExample019
+Module26=frmExample020
+Module27=frmExample021
+Module28=frmExample022
+Module29=frmExample023
+Module3=frmChallenge03
+Module30=frmExample024
+Module31=frmExample025
+Module32=frmExample026
+Module33=frmExample027
+Module34=frmExample028
+Module35=frmExample029
+Module36=frmExample030
+Module37=frmExample031
+Module38=frmExample032
+Module39=frmExample033
+Module4=frmChallenge04
+Module40=frmExample034
+Module41=frmExample035
+Module42=frmExample036
+Module43=frmExample037
+Module44=frmExample038
+Module45=frmExample039
+Module46=frmExample040
+Module47=frmExample041
+Module48=frmExample042
+Module49=frmExample043
+Module5=frmChallenge05
+Module50=frmExample044
+Module51=frmExample045
+Module52=frmExample046
+Module53=frmExample047
+Module54=frmExample048
+Module55=frmExample049
+Module56=frmExample050
+Module57=frmExample051
+Module58=frmExample052
+Module59=frmExample053
+Module6=frmChallenge06
+Module60=frmExample054
+Module61=frmExample055
+Module62=frmExample056
+Module63=frmExample057
+Module64=frmExample058
+Module65=frmExample059
+Module66=frmExample060
+Module67=frmExample061
+Module68=frmExample062
+Module69=frmExample063
+Module7=frmExample001
+Module70=frmExample064
+Module71=frmExample065
+Module72=frmExample066
+Module73=frmExample067
+Module74=frmExample068
+Module75=frmExample069
+Module76=frmExample070
+Module77=frmExample071
+Module78=frmExample072
+Module79=frmExample073
+Module8=frmExample002
+Module80=frmExample074
+Module81=frmExample075
+Module82=frmExample076
+Module83=frmExample077
+Module84=frmExample078
+Module85=frmExample079
+Module86=frmExample080
+Module87=frmExample081
+Module88=frmExample082
+Module89=frmExample083
+Module9=frmExample003
+Module90=frmExample084
+Module91=frmExample085
+Module92=frmExample086
+Module93=frmExample087
+Module94=frmExample088
+Module95=frmExample089
+Module96=frmExample090
+Module97=frmExample091
+Module98=frmExample092
+Module99=frmExample093
+NumberOfFiles=1
+NumberOfLibraries=2
+NumberOfModules=133
+Version=14.2
+@EndOfDesignText@
+#region Project Attributes
+    #ApplicationLabel: SithasoMPACharts Demo
+    #VersionCode: 1
+    #VersionName: 2.0
+    #SupportedOrientations: portrait
+    #AdditionalJar: mpChartLib
+    #AdditionalJar: kotlin-stdlib-2.0.21
+#End Region
+
+#region Activity Attributes
+    #FullScreen: False
+    #IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+End Sub
+
+Sub Globals
+    Private Examples As ListView
+    Private Header As Label
+    Private Acts As List
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+    Activity.Color = Colors.RGB(247, 248, 250)
+    Header.Initialize("")
+    Header.Text = "SithasoMPACharts examples"
+    Header.TextSize = 24
+    Header.TextColor = Colors.RGB(27, 38, 59)
+    Header.Gravity = Gravity.CENTER_VERTICAL
+    Activity.AddView(Header, 18dip, 30dip, Activity.Width - 36dip, 52dip)
+
+    Examples.Initialize("Examples")
+    Examples.SingleLineLayout.Label.TextSize = 17
+    Examples.SingleLineLayout.Label.TextColor = Colors.RGB(35, 47, 62)
+    Examples.SingleLineLayout.ItemHeight = 52dip
+    Activity.AddView(Examples, 10dip, 92dip, Activity.Width - 20dip, Activity.Height - 120dip)
+
+
+    Dim Names As List = Array As String( _
+        "Line", "Area", "Column", "Bar", "Pie", "Donut", "Scatter", "Bubble", "Radar", "Candlestick", "Combo", _
+        "Nightingale rose", "Polar area", "Half donut gauge", _
+        "Grouped columns", "Stacked columns", "Stacked bars", "Value alignment", "Pill stacked columns", "Pill stacked bars", "Pill columns", "Multiple series", "Scatter coordinates", "Series colors", _
+        "Data values", "Currency prefix", "Axis limits", "Limit lines", "Straight line", "Dashed lines", "No grid", _
+        "Pan and zoom off", "Custom palette", "Legend hidden", "Legend at bottom", "Legend at top", _
+        "Dual Y-Axis", "Positive negative column", "Negative horizontal bar", "Stepped line", "Sine wave bars", _
+        "Scatter shapes", "High density line", "24-Hour timeline", "Rotated labels", "Title and subtitle", _
+        "Single series colors", "Multi-line straight", "Multi-series area", "Multi-series gradient", "Empty state", _
+        "Animate X and Y", "Animate XY columns", "Realtime streaming", _
+        "Nightfall: Revenue", "Nightfall: Orders", "Nightfall: Budget", "Nightfall: Sessions", _
+        "Nightfall: Spend", "Nightfall: ACME Corp", "Nightfall: Team profile", "Nightfall: Growth", "Nightfall: Deal size", _
+        "Cyberpunk: Revenue", "Cyberpunk: Orders", "Cyberpunk: Budget", "Cyberpunk: Sessions", _
+        "Cyberpunk: Spend", "Cyberpunk: ACME Corp", "Cyberpunk: Team profile", "Cyberpunk: Growth", "Cyberpunk: Deal size", _
+        "Material: Revenue", "Material: Orders", "Material: Budget", "Material: Sessions", _
+        "Material: Spend", "Material: ACME Corp", "Material: Team profile", "Material: Growth", "Material: Deal size", _
+        "Pastel: Revenue", "Pastel: Orders", "Pastel: Budget", "Pastel: Sessions", _
+        "Pastel: Spend", "Pastel: ACME Corp", "Pastel: Team profile", "Pastel: Growth", "Pastel: Deal size", _
+        "Liberty: Revenue", "Liberty: Orders", "Liberty: Budget", "Liberty: Sessions", _
+        "Liberty: Spend", "Liberty: ACME Corp", "Liberty: Team profile", "Liberty: Growth", "Liberty: Deal size", _
+        "Nightfall Dark: Revenue", "Nightfall Dark: Orders", "Nightfall Dark: Budget", "Nightfall Dark: Sessions", _
+        "Nightfall Dark: Spend", "Nightfall Dark: ACME Corp", "Nightfall Dark: Team profile", "Nightfall Dark: Growth", "Nightfall Dark: Deal size", _
+        "Radial single", "Radial center image", "Radial bar labels", "Radial gauge label", "Radial single dashed", _
+        "Radial dashed gauge", "Radial", "Radial semi", "Radial dashed", "Radial gradient", "Radial gauge", _
+        "Easing bounce", "Percent donut", "Slice leaders", "Bar borders", "Combo layers", "Axis chrome", "Candle style", "Radar web", _
+        "Challenge 1.1: Hello Chart", "Challenge 1.2: Theme Swap", "Challenge 1.3: Chart Type Picker", _
+        "Challenge 2.1: Anatomy Labeler", "Challenge 2.2: Dual Axis Chart", "Challenge 2.3: Radial Gauge Anatomy")
+
+    For i = 0 To Names.Size - 1
+        Examples.AddSingleLine2((i + 1) & ". " & Names.Get(i), i)
+    Next
+
+    ' One activity per chart, launched from the list below.
+    Acts.Initialize
+    Acts.Add(frmExample001)
+    Acts.Add(frmExample002)
+    Acts.Add(frmExample003)
+    Acts.Add(frmExample004)
+    Acts.Add(frmExample005)
+    Acts.Add(frmExample006)
+    Acts.Add(frmExample007)
+    Acts.Add(frmExample008)
+    Acts.Add(frmExample009)
+    Acts.Add(frmExample010)
+    Acts.Add(frmExample011)
+    Acts.Add(frmExample012)
+    Acts.Add(frmExample013)
+    Acts.Add(frmExample014)
+    Acts.Add(frmExample015)
+    Acts.Add(frmExample016)
+    Acts.Add(frmExample017)
+    Acts.Add(frmExample018)
+    Acts.Add(frmExample019)
+    Acts.Add(frmExample020)
+    Acts.Add(frmExample021)
+    Acts.Add(frmExample022)
+    Acts.Add(frmExample023)
+    Acts.Add(frmExample024)
+    Acts.Add(frmExample025)
+    Acts.Add(frmExample026)
+    Acts.Add(frmExample027)
+    Acts.Add(frmExample028)
+    Acts.Add(frmExample029)
+    Acts.Add(frmExample030)
+    Acts.Add(frmExample031)
+    Acts.Add(frmExample032)
+    Acts.Add(frmExample033)
+    Acts.Add(frmExample034)
+    Acts.Add(frmExample035)
+    Acts.Add(frmExample036)
+    Acts.Add(frmExample037)
+    Acts.Add(frmExample038)
+    Acts.Add(frmExample039)
+    Acts.Add(frmExample040)
+    Acts.Add(frmExample041)
+    Acts.Add(frmExample042)
+    Acts.Add(frmExample043)
+    Acts.Add(frmExample044)
+    Acts.Add(frmExample045)
+    Acts.Add(frmExample046)
+    Acts.Add(frmExample047)
+    Acts.Add(frmExample048)
+    Acts.Add(frmExample049)
+    Acts.Add(frmExample050)
+    Acts.Add(frmExample051)
+    Acts.Add(frmExample052)
+    Acts.Add(frmExample053)
+    Acts.Add(frmExample054)
+    Acts.Add(frmExample055)
+    Acts.Add(frmExample056)
+    Acts.Add(frmExample057)
+    Acts.Add(frmExample058)
+    Acts.Add(frmExample059)
+    Acts.Add(frmExample060)
+    Acts.Add(frmExample061)
+    Acts.Add(frmExample062)
+    Acts.Add(frmExample063)
+    Acts.Add(frmExample064)
+    Acts.Add(frmExample065)
+    Acts.Add(frmExample066)
+    Acts.Add(frmExample067)
+    Acts.Add(frmExample068)
+    Acts.Add(frmExample069)
+    Acts.Add(frmExample070)
+    Acts.Add(frmExample071)
+    Acts.Add(frmExample072)
+    Acts.Add(frmExample073)
+    Acts.Add(frmExample074)
+    Acts.Add(frmExample075)
+    Acts.Add(frmExample076)
+    Acts.Add(frmExample077)
+    Acts.Add(frmExample078)
+    Acts.Add(frmExample079)
+    Acts.Add(frmExample080)
+    Acts.Add(frmExample081)
+    Acts.Add(frmExample082)
+    Acts.Add(frmExample083)
+    Acts.Add(frmExample084)
+    Acts.Add(frmExample085)
+    Acts.Add(frmExample086)
+    Acts.Add(frmExample087)
+    Acts.Add(frmExample088)
+    Acts.Add(frmExample089)
+    Acts.Add(frmExample090)
+    Acts.Add(frmExample091)
+    Acts.Add(frmExample092)
+    Acts.Add(frmExample093)
+    Acts.Add(frmExample094)
+    Acts.Add(frmExample095)
+    Acts.Add(frmExample096)
+    Acts.Add(frmExample097)
+    Acts.Add(frmExample098)
+    Acts.Add(frmExample099)
+    Acts.Add(frmExample100)
+    Acts.Add(frmExample101)
+    Acts.Add(frmExample102)
+    Acts.Add(frmExample103)
+    Acts.Add(frmExample104)
+    Acts.Add(frmExample105)
+    Acts.Add(frmExample106)
+    Acts.Add(frmExample107)
+    Acts.Add(frmExample108)
+    Acts.Add(frmExample109)
+    Acts.Add(frmExample110)
+    Acts.Add(frmExample111)
+    Acts.Add(frmExample112)
+    Acts.Add(frmExample113)
+    Acts.Add(frmExample114)
+    Acts.Add(frmExample115)
+    Acts.Add(frmExample116)
+    Acts.Add(frmExample117)
+    Acts.Add(frmExample118)
+    Acts.Add(frmExample119)
+    Acts.Add(frmExample120)
+    Acts.Add(frmExample121)
+    Acts.Add(frmExample122)
+    Acts.Add(frmExample123)
+    Acts.Add(frmExample124)
+    Acts.Add(frmExample125)
+    Acts.Add(frmExample126)
+    Acts.Add(frmExample127)
+    Acts.Add(frmChallenge01)
+    Acts.Add(frmChallenge02)
+    Acts.Add(frmChallenge03)
+    Acts.Add(frmChallenge04)
+    Acts.Add(frmChallenge05)
+    Acts.Add(frmChallenge06)
+End Sub
+
+Sub Examples_ItemClick (Position As Int, Value As Object)
+    StartActivity(Acts.Get(Value))
+End Sub
