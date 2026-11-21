@@ -142,7 +142,7 @@ Private Sub ConfigureCommonChart(Chart As SithasoMPACharts, ChartTitle As String
     Chart.XTitle = XCaption
     Chart.YTitle = YCaption
     Chart.LegendEnabled = LegendMode
-    Chart.DisableScroll = True
+    Chart.DisableScroll
     Chart.AllowZoom = False
     Chart.Animate = True
     Chart.AnimationDuration = 650
