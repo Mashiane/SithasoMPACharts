@@ -34,7 +34,7 @@ The implementation is derived from the dashboard requirements and the skill's ge
 
 ## API verification ledger
 
-Evidence checked for this audit: README integration sample, skill references, handbook v10.19, and the user-supplied installed `SithasoMPACharts.xml` (class `com.sithaso.mpacharts.SithasoMPACharts`, XML version 10.19). The XML declares 237 writable properties, 118 fields, 624 method entries (including generated accessors and internal hooks), and 11 events. The ledger below is checked against the XML declarations; compilation and runtime behavior remain untested.
+Evidence checked for this audit: README integration sample, skill references, handbook v10.19, uploaded `SithasoMPACharts.java` and supplied `SithasoMPACharts.xml` (class `com.sithaso.mpacharts.SithasoMPACharts`, Java/XML version 10.19). The source and XML agree on 229 Designer properties, 237 runtime `<property>` descriptors (229 Designer plus 8 code-only), 118 fields/constants, 624 method entries and 11 events. All 237 XML properties have Java getter/setter pairs. Compilation and runtime behavior remain untested.
 
 | Member / pattern | Use | Evidence | Status |
 |---|---|---|---|
@@ -73,8 +73,8 @@ No raw MPAndroidChart Java APIs are called.
 |---|---|
 | Requirements/design | Completed |
 | Source review | Completed |
-| Repository/handbook API evidence | Checked |
-| Installed XML/API descriptor | Checked: v10.19; 237 properties, 118 fields, 11 events |
+| Repository/handbook/Java/XML API evidence | Checked; see `API-CONFORMANCE-AUDIT-v10.19.md` |
+| Java / XML / handbook conformance | Checked: 229/229 Designer properties, 237/237 runtime property accessors, 118 fields, 11 events |
 | B4A compilation | Not run |
 | Android rendering | Not run |
 | Touch/scroll interaction | Not run |
