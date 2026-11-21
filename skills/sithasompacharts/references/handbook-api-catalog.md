@@ -99,6 +99,28 @@ The following is the handbook's property-name inventory, grouped by its Appendix
 | `PillShape`, `StackGap` | v10.10 |
 | Programmatic `HighlightIndex` | v10.12 |
 
+## Designer properties versus code-only runtime properties
+
+The handbook's Appendix A property dictionary is the **229-property Visual Designer inventory**. The v10.19 XML has 237 B4A `<property>` descriptors because it also exposes eight code-only runtime properties through Java getter/setter pairs. These eight are not missing Designer entries; they have no `@DesignerProperties` metadata and do not appear as editable Visual Designer fields.
+
+| Code-only runtime property | XML type | Java wrapper contract |
+|---|---|---|
+| `DragOffsetX` | Float | `getDragOffsetX()` / `setDragOffsetX(float)` |
+| `DragOffsetY` | Float | `getDragOffsetY()` / `setDragOffsetY(float)` |
+| `DrawHoleEnabled` | Boolean | `getDrawHoleEnabled()` / `setDrawHoleEnabled(boolean)` |
+| `DrawOrder` | String | `getDrawOrder()` / `setDrawOrder(String)` |
+| `RingCenterImage` | Object | Setter accepts B4A Bitmap or Null; getter returns Bitmap |
+| `TouchEnabled` | Boolean | `getTouchEnabled()` / `setTouchEnabled(boolean)` |
+| `VisibleYRangeMin` | Float | `getVisibleYRangeMin()` / `setVisibleYRangeMin(float)` |
+| `VisibleYRangeMax` | Float | `getVisibleYRangeMax()` / `setVisibleYRangeMax(float)` |
+
+Two type details matter when translating the Designer table into Basic code:
+
+- `StackLabels` is `String` in Designer metadata, but the runtime Java setter accepts `Object` (B4A List, String array or comma-separated String) and the getter returns a B4A List. The XML runtime property type is `Object`.
+- `RingCenterImage` is code-only. Its setter accepts `Object` (B4A Bitmap or Null) while its getter returns Bitmap; the XML property type is `Object`.
+
+Do not conflate the XML `<designerProperty>` metadata node with the XML `<property>` node generated from Java getters/setters.
+
 ## Interpretation cautions from the handbook
 
 - `LegendEnabled` is a mode, not a Boolean: Auto, Show, Hide. Auto hides the legend for a single series and for radial charts.
