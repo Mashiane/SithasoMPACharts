@@ -152,7 +152,7 @@ Updates made on this branch:
 | Java constants vs XML fields | Complete; 118/118 |
 | Java events vs XML events | Complete; 11/11 |
 | Skill's documented method patterns vs XML | Complete for the listed patterns |
-| Static Designer preview mapping | Patched supplied Java source; static check passes 229/229; patch artifact stored in branch | 
+| Static Designer preview mapping | Patched supplied Java source; static check passes 229/229; patch applies cleanly and reproduces patched source | 
 | B4A Visual Designer rendering | Pending; requires opening the library in the B4A IDE |
 | XML/JAR binary pair consistency | Not verified; JAR not supplied |
 | B4A compilation | Not run |
