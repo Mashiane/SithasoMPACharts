@@ -1,0 +1,215 @@
+﻿Build1=Default,com.sithaso.mpachartssmoke
+Group=Default Group
+Library1=core
+Library2=sithasompacharts
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'
+Module1=Main
+NumberOfLibraries=2
+NumberOfModules=1
+Version=14.2
+@EndOfDesignText@
+#region Project Attributes
+    #ApplicationLabel: SithasoMPACharts Smoke Tests
+    #VersionCode: 1
+    #VersionName: 1.0
+    #SupportedOrientations: portrait
+    #AdditionalJar: mpChartLib
+    #AdditionalJar: kotlin-stdlib-2.0.21
+#End Region
+
+#region Activity Attributes
+    #FullScreen: False
+    #IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+End Sub
+
+Sub Globals
+    Private Chart As SithasoMPACharts
+    Private Tests As ListView
+    Private Header As Label
+    Private Status As Label
+    Private RealtimeTimer As Timer
+    Private RealtimeCounter As Float
+    Private CurrentTest As String
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+    Activity.Color = Colors.RGB(247, 248, 250)
+    Header.Initialize("")
+    Header.Text = "SithasoMPACharts smoke tests"
+    Header.TextSize = 20
+    Header.TextColor = Colors.RGB(27, 38, 59)
+    Header.Gravity = Gravity.CENTER_VERTICAL
+    Activity.AddView(Header, 12dip, 8dip, Activity.Width - 24dip, 38dip)
+
+    Tests.Initialize("Tests")
+    Tests.SingleLineLayout.Label.TextSize = 14
+    Tests.SingleLineLayout.Label.TextColor = Colors.RGB(35, 47, 62)
+    Tests.SingleLineLayout.ItemHeight = 42dip
+    Activity.AddView(Tests, 8dip, 50dip, Activity.Width - 16dip, 7 * 42dip + 8dip)
+    Tests.AddSingleLine2("01 - Line / DataSet", "line")
+    Tests.AddSingleLine2("02 - Horizontal bar", "bar")
+    Tests.AddSingleLine2("03 - Candlestick OHLC", "candle")
+    Tests.AddSingleLine2("04 - Dual Y-axis", "dual")
+    Tests.AddSingleLine2("05 - Realtime (1 second)", "realtime")
+    Tests.AddSingleLine2("06 - Radial gauge", "radial")
+    Tests.AddSingleLine2("07 - Radar web", "radar")
+
+    Chart.Initialize("Chart")
+    Dim ChartTop As Int = 50dip + 7 * 42dip + 18dip
+    Activity.AddView(Chart, 8dip, ChartTop, Activity.Width - 16dip, Max(180dip, Activity.Height - ChartTop - 48dip))
+
+    Status.Initialize("")
+    Status.TextSize = 11
+    Status.TextColor = Colors.RGB(85, 98, 113)
+    Status.Gravity = Gravity.CENTER_VERTICAL
+    Activity.AddView(Status, 12dip, Activity.Height - 38dip, Activity.Width - 24dip, 30dip)
+    RealtimeTimer.Initialize("RealtimeTimer", 1000)
+    Status.Text = "Select a test. Rendering must be checked on device."
+End Sub
+
+Sub Activity_Resume
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+    If RealtimeTimer.IsInitialized Then RealtimeTimer.Enabled = False
+End Sub
+
+Sub Tests_ItemClick (Position As Int, Value As Object)
+    If RealtimeTimer.IsInitialized Then RealtimeTimer.Enabled = False
+    CurrentTest = Value
+    Select Case CurrentTest
+        Case "line"
+            TestLine
+        Case "bar"
+            TestBar
+        Case "candle"
+            TestCandlestick
+        Case "dual"
+            TestDualAxis
+        Case "realtime"
+            TestRealtime
+        Case "radial"
+            TestRadial
+        Case "radar"
+            TestRadar
+    End Select
+End Sub
+
+Private Sub PrepareChart(Title As String, ChartType As Int, XCaption As String, YCaption As String)
+    Chart.ClearValues
+    Chart.BeginUpdate
+    Chart.Title = Title
+    Chart.ShowTitle = True
+    Chart.ChartType = ChartType
+    Chart.XTitle = XCaption
+    Chart.YTitle = YCaption
+    Chart.LegendEnabled = Chart.LEGEND_AUTO
+End Sub
+
+Private Sub TestLine
+    PrepareChart("Line / DataSet", Chart.CHART_LINE, "Month", "Visitors")
+    Dim DS As Int = Chart.AddDataSet("Visitors", 0)
+    Chart.AddValues(DS, Array As Double(12, 19, 15, 28, 24, 35))
+    Chart.AddLabels(Array As String("Jan", "Feb", "Mar", "Apr", "May", "Jun"))
+    Chart.EndUpdate
+    Status.Text = "Selected: line + DataSet. Source: frmExample001.bas"
+End Sub
+
+Private Sub TestBar
+    PrepareChart("Horizontal bar", Chart.CHART_BAR, "Value", "Category")
+    Dim DS As Int = Chart.AddDataSet("Energy (kWh)", 0)
+    Chart.AddValues(DS, Array As Double(42, 68, 31, 85, 57))
+    Chart.AddLabels(Array As String("North", "South", "East", "West", "Central"))
+    Chart.EndUpdate
+    Status.Text = "Selected: horizontal bar. Source: frmExample004.bas"
+End Sub
+
+Private Sub TestCandlestick
+    PrepareChart("Candlestick OHLC", Chart.CHART_CANDLE, "Trading day", "Price")
+    Chart.CandleIncreasingColor = Colors.RGB(46, 125, 50)
+    Chart.CandleDecreasingColor = Colors.RGB(198, 40, 40)
+    Chart.CandleShadowWidth = 2
+    Dim DS As Int = Chart.AddDataSet("ACME", 0)
+    ' Wrapper argument order: HIGH, LOW, OPEN, CLOSE.
+    Chart.AddDataSetCandle(DS, 125, 95, 100, 120)
+    Chart.AddDataSetCandle(DS, 135, 110, 122, 115)
+    Chart.AddDataSetCandle(DS, 118, 90, 114, 95)
+    Chart.AddDataSetCandle(DS, 130, 92, 96, 128)
+    Chart.AddDataSetCandle(DS, 140, 120, 125, 138)
+    Chart.AddLabels(Array As String("Mon", "Tue", "Wed", "Thu", "Fri"))
+    Chart.EndUpdate
+    Status.Text = "Selected: candlestick OHLC. Source: frmExample010.bas"
+End Sub
+
+Private Sub TestDualAxis
+    PrepareChart("Dual Y-axis", Chart.CHART_LINE, "Day", "Temperature (C)")
+    Chart.ShowRightAxis = True
+    Dim DS0 As Int = Chart.AddDataSet("Temperature (C)", Colors.RGB(230, 81, 0))
+    Chart.AddValues(DS0, Array As Double(21, 23, 27, 26, 22))
+    Dim DS1 As Int = Chart.AddDataSet("Pressure (hPa)", Colors.RGB(30, 136, 229))
+    Chart.AddValues(DS1, Array As Double(1012, 1015, 1008, 1010, 1014))
+    Chart.SetDataSetAxis(DS1, "right")
+    Chart.AddLabels(Array As String("Mon", "Tue", "Wed", "Thu", "Fri"))
+    Chart.EndUpdate
+    Status.Text = "Selected: dual Y-axis. Source: frmExample037.bas"
+End Sub
+
+Private Sub TestRealtime
+    PrepareChart("Realtime sensor", Chart.CHART_LINE, "Samples", "Voltage (mV)")
+    Chart.Animate = False
+    Chart.DrawCirclesEnabled = False
+    Chart.LineWidth = 2.5
+    Chart.AxisMinimum = 0
+    Chart.AxisMaximum = 100
+    Chart.DrawGrid = True
+    Chart.Subtitle = "One sample per second"
+    Chart.ShowSubtitle = True
+    Chart.AddDataSet("Live sensor", Colors.RGB(3, 169, 244))
+    Chart.EndUpdate
+    RealtimeCounter = 0
+    RealtimeTimer.Enabled = True
+    Status.Text = "RUNNING: 1 second update. Timer pauses in Activity_Pause. Source: frmExample054.bas"
+End Sub
+
+Sub RealtimeTimer_Tick
+    If CurrentTest <> "realtime" Then
+        RealtimeTimer.Enabled = False
+        Return
+    End If
+    RealtimeCounter = RealtimeCounter + 1
+    Dim Wave As Float = 50 + Sin(RealtimeCounter * 0.12) * 25 + Cos(RealtimeCounter * 0.28) * 10
+    Chart.AddRealtimeValue(Wave, 0, 35)
+End Sub
+
+Private Sub TestRadial
+    PrepareChart("Radial completion", Chart.CHART_RADIAL, "Period", "Value")
+    Chart.RingLineCap = Chart.RING_CAP_BUTT
+    Chart.RadialDashed = True
+    Chart.CenterText = "68%"
+    Chart.CenterSubtext = "Completion"
+    Chart.ValueFontSize = 11
+    Chart.LegendEnabled = Chart.LEGEND_HIDE
+    Dim DS As Int = Chart.AddDataSet("Completion", 0)
+    Chart.AddValues(DS, Array As Double(68))
+    Chart.AddLabels(Array As String("Completion"))
+    Chart.EndUpdate
+    Status.Text = "Selected: radial chart (requires v10.0+). Source: frmExample109.bas"
+End Sub
+
+Private Sub TestRadar
+    PrepareChart("Radar web", Chart.CHART_RADAR, "", "")
+    Chart.WebLineWidthInner = 3
+    Chart.WebColorInner = Colors.RGB(45, 212, 191)
+    Chart.WebAlpha = 120
+    Chart.SkipWebLineCount = 1
+    Dim DS0 As Int = Chart.AddDataSet("Product A", 0)
+    Chart.AddValues(DS0, Array As Double(80, 65, 72, 90, 68))
+    Dim DS1 As Int = Chart.AddDataSet("Product B", 0)
+    Chart.AddValues(DS1, Array As Double(62, 88, 55, 72, 86))
+    Chart.AddLabels(Array As String("Speed", "Quality", "Price", "Support", "Range"))
+    Chart.EndUpdate
+    Status.Text = "Selected: radar web. Source: frmExample127.bas"
+End Sub
