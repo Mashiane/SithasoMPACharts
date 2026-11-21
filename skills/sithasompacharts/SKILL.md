@@ -101,7 +101,9 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - B4A Chart Developer mode: references/modes/b4a-chart-developer.md
 - Chart Auditor mode: references/modes/chart-auditor.md
 - Charting-skills research: references/charting-skills-research.md — external skill patterns worth adopting
-- Evaluation cases: evals/evals.json — regression prompts for chart choice, API correctness, analytical integrity and lifecycle safety
+- Evaluation cases: evals/evals.json — 12 regression prompts for chart choice, API correctness, analytical integrity and lifecycle safety
+- Evaluation procedure: evals/README.md — repeatable run instructions, scoring rubric and coverage map
+- Evaluation schema: evals/evals.schema.json — machine-readable validation contract
 
 ## Response format when generating code
 
