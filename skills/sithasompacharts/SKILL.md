@@ -30,17 +30,50 @@ Authority order for exact implementation:
 
 The handbook is specifically versioned for v10.19. Check Chart.GetVersion and the installed XML before using version-sensitive properties. Do not assume the current installation matches the book.
 
-## XML/API descriptor interpretation (mandatory)
+## Java → B4A XML exposure contract (mandatory)
 
-Treat the installed `SithasoMPACharts.xml` as a structured API contract, not merely a name lookup:
+The Java wrapper source, B4A XML and Designer metadata are related but distinct API layers. Never collapse them into one property count.
 
-- A `<property>` entry is used with B4A property syntax (for example, `Chart.AllowZoom = True`). Check its declared type and setter parameter.
-- A `<method>` entry is invoked as a method (for example, `Chart.DisableScroll`), with exactly the declared parameter count and types. Never convert a method into a property assignment based on its name.
-- A `<field>` entry is a constant/field (for example, `Chart.CHART_LINE`); use it in the documented argument or property position.
+For the published v10.19 wrapper:
+
+- Java `@DesignerProperties` contains 229 `@Property(key=...)` declarations.
+- XML `<designerProperty>` contains the corresponding 229 Visual Designer metadata entries: key, display name, field type, default, list/range and description.
+- XML `<property>` contains 237 B4A property descriptors generated from Java getter/setter pairs. The 229 Designer properties are included here, plus eight code-only runtime properties.
+- XML also contains 624 method entries, 118 fields/constants and 11 events. These counts match the published v10.19 handbook; method entries still need classification because B4A hooks and internal methods are not ordinary app APIs.
+
+### Verifying a Designer property
+
+For every Designer property used or changed in the Java library, verify the complete chain:
+
+1. A Java `@Property(key = "Name", fieldType = ..., defaultValue = ...)` annotation exists inside `@DesignerProperties`.
+2. The wrapper has a public `getName()` and `setName(...)` pair. Confirm the actual Java types; do not infer them from the display name.
+3. The generated XML has both a matching `<designerProperty>` entry and a matching `<property>` entry.
+4. `DesignerCreateView` / `applyDesignerProps` reads the key and maps it to the correct backing field.
+5. `ResetProperties` restores the documented default (allow for semantically equivalent representations such as an empty String in Designer metadata becoming an empty List internally).
+6. If the property should appear in the Visual Designer preview, verify that the static `build` / `Spec.fromProps` path also consumes it. Runtime application and static Designer preview are separate paths.
+
+A property is not complete merely because its Designer metadata exists. Missing getter/setter exposure, XML generation or backing-field mapping is a real wrapper defect.
+
+### Designer properties versus code-only runtime properties
+
+A Java getter/setter pair can expose a B4A property without a `@DesignerProperties` annotation. Such a member appears as XML `<property>` but not XML `<designerProperty>`; it is settable from Basic code but is not an editable Visual Designer property. Do not report these as missing Designer entries.
+
+The eight code-only properties in v10.19 are `DragOffsetX`, `DragOffsetY`, `DrawHoleEnabled`, `DrawOrder`, `RingCenterImage`, `TouchEnabled`, `VisibleYRangeMin` and `VisibleYRangeMax`.
+
+Two intentional flexible-type cases require source inspection:
+
+- `StackLabels`: Designer `fieldType` is `String`; the runtime setter accepts `Object` (List, String array or comma-separated String) and the getter returns a B4A List. The XML runtime property is therefore `Object`.
+- `RingCenterImage`: code-only setter accepts `Object` (B4A Bitmap or Null); getter returns Bitmap; the XML runtime property is `Object`.
+
+### XML member kinds
+
+- A `<property>` entry is used with B4A property syntax (for example, `Chart.AllowZoom = True`). Check its declared parameter type and the Java getter/setter pair.
+- A `<method>` entry is invoked as a method with exactly the declared parameter count and types. Never convert a method into a property assignment based on its name.
+- A `<field>` entry is a constant/field (for example, `Chart.CHART_LINE`).
 - An `<event>` entry defines the callback name and exact event signature.
-- Do not treat generated `getX`/`setX` accessors, leading-underscore methods, or B4A designer/lifecycle hooks as ordinary application APIs. Use the corresponding declared `<property>` instead.
+- Do not treat `@Hide` methods, generated accessors, leading-underscore methods, or B4A designer/lifecycle hooks as ordinary application APIs.
 - Record the XML class name and version. If the XML and binary/runtime version do not match, mark the API status unresolved rather than assuming compatibility.
-- If a member is absent from the installed XML, do not invent it from MPAndroidChart documentation or Java naming conventions. Use a verified wrapper method or report the capability as unavailable.
+- If a member is absent from the installed XML, do not invent it from MPAndroidChart documentation or Java naming conventions.
 
 For example, `DisableScroll` is a parameterless method in v10.19 XML, not a Boolean property:
 ```basic
