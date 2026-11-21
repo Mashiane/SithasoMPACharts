@@ -1,0 +1,198 @@
+﻿Build1=Default,com.sithaso.energy.dashboard
+Group=Default Group
+Library1=core
+Library2=sithasompacharts
+NumberOfFiles=0
+ManifestCode='This code will be applied to the manifest file during compilation.~\n~AddManifestText(~\n~<uses-sdk android:minSdkVersion="23" android:targetSdkVersion="35"/>~\n~<supports-screens android:largeScreens="true" android:normalScreens="true" android:smallScreens="true" android:anyDensity="true"/>)~\n~SetApplicationAttribute(android:label, "$LABEL$")~\n~CreateResourceFromFile(Macro, Themes.LightTheme)~\n~'
+Module1=Main
+NumberOfLibraries=2
+NumberOfModules=1
+Version=14.2
+@EndOfDesignText@
+#region Project Attributes
+    #ApplicationLabel: Renewable Energy Dashboard
+    #VersionCode: 1
+    #VersionName: 1.0
+    #SupportedOrientations: portrait
+    #AdditionalJar: mpChartLib
+    #AdditionalJar: kotlin-stdlib-2.0.21
+#End Region
+
+#region Activity Attributes
+    #FullScreen: False
+    #IncludeTitle: False
+#End Region
+
+Sub Process_Globals
+End Sub
+
+Sub Globals
+    Private DashboardScroll As ScrollView
+    Private ChartMonthly As SithasoMPACharts
+    Private ChartSources As SithasoMPACharts
+    Private ChartDaily As SithasoMPACharts
+    Private Header As Label
+    Private SubHeader As Label
+    Private SectionMonthly As Label
+    Private SectionSources As Label
+    Private SectionDaily As Label
+End Sub
+
+Sub Activity_Create(FirstTime As Boolean)
+    Activity.Color = Colors.RGB(246, 248, 251)
+
+    Header.Initialize("")
+    Header.Text = "Renewable Energy"
+    Header.TextSize = 22
+    Header.TextColor = Colors.RGB(24, 39, 58)
+    Header.Typeface = Typeface.DEFAULT_BOLD
+    Header.Gravity = Gravity.CENTER_VERTICAL
+    Activity.AddView(Header, 16dip, 6dip, Activity.Width - 32dip, 32dip)
+
+    SubHeader.Initialize("")
+    SubHeader.Text = "Generation, energy mix and daily demand"
+    SubHeader.TextSize = 12
+    SubHeader.TextColor = Colors.RGB(91, 105, 122)
+    SubHeader.Gravity = Gravity.CENTER_VERTICAL
+    Activity.AddView(SubHeader, 16dip, 36dip, Activity.Width - 32dip, 22dip)
+
+    DashboardScroll.Initialize(0)
+    Activity.AddView(DashboardScroll, 0, 64dip, Activity.Width, Activity.Height - 64dip)
+    DashboardScroll.Panel.Color = Activity.Color
+    DashboardScroll.Panel.Width = Activity.Width
+    DashboardScroll.Panel.Height = 1080dip
+
+    BuildMonthlyChart
+    BuildSourceChart
+    BuildDailyChart
+End Sub
+
+Private Sub BuildMonthlyChart
+    SectionMonthly.Initialize("")
+    SectionMonthly.Text = "01  Monthly generation"
+    SectionMonthly.TextSize = 16
+    SectionMonthly.TextColor = Colors.RGB(31, 48, 68)
+    SectionMonthly.Typeface = Typeface.DEFAULT_BOLD
+    SectionMonthly.Gravity = Gravity.CENTER_VERTICAL
+    DashboardScroll.Panel.AddView(SectionMonthly, 16dip, 10dip, Activity.Width - 32dip, 28dip)
+
+    ChartMonthly.Initialize("ChartMonthly")
+    DashboardScroll.Panel.AddView(ChartMonthly, 8dip, 40dip, Activity.Width - 16dip, 300dip)
+
+    ChartMonthly.BeginUpdate
+    ChartMonthly.ChartType = ChartMonthly.CHART_LINE
+    ChartMonthly.Title = "Energy generated"
+    ChartMonthly.ShowTitle = True
+    ChartMonthly.Subtitle = "Monthly output by generation source (MWh)"
+    ChartMonthly.ShowSubtitle = True
+    ChartMonthly.Theme = ChartMonthly.THEME_NIGHTFALL
+    ChartMonthly.BackgroundColor = Colors.White
+    ChartMonthly.CornerRadius = 10
+    ChartMonthly.Elevation = 1
+    ChartMonthly.HeaderPaddingHorizontal = 12
+    ChartMonthly.HeaderPaddingTop = 8
+    ChartMonthly.HeaderPaddingBottom = 4
+    ChartMonthly.XTitle = "Month"
+    ChartMonthly.YTitle = "Generation (MWh)"
+    ChartMonthly.LegendEnabled = ChartMonthly.LEGEND_AUTO
+    ChartMonthly.LegendPosition = ChartMonthly.LEGEND_BOTTOM
+    ChartMonthly.DisableScroll = True
+    ChartMonthly.AllowZoom = True
+    ChartMonthly.Animate = True
+    ChartMonthly.AnimationDuration = 650
+
+    Dim SolarSet As Int = ChartMonthly.AddDataSet("Solar", 0)
+    Dim WindSet As Int = ChartMonthly.AddDataSet("Wind", 0)
+    ChartMonthly.AddLabels(Array As String("Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"))
+    ChartMonthly.AddValues(SolarSet, Array As Double(118, 126, 142, 155, 168, 174, 181, 190, 205, 214, 226, 238))
+    ChartMonthly.AddValues(WindSet, Array As Double(92, 105, 112, 108, 116, 129, 138, 145, 151, 148, 157, 166))
+    ChartMonthly.EndUpdate
+End Sub
+
+Private Sub BuildSourceChart
+    SectionSources.Initialize("")
+    SectionSources.Text = "02  Generation by source"
+    SectionSources.TextSize = 16
+    SectionSources.TextColor = Colors.RGB(31, 48, 68)
+    SectionSources.Typeface = Typeface.DEFAULT_BOLD
+    SectionSources.Gravity = Gravity.CENTER_VERTICAL
+    DashboardScroll.Panel.AddView(SectionSources, 16dip, 354dip, Activity.Width - 32dip, 28dip)
+
+    ChartSources.Initialize("ChartSources")
+    DashboardScroll.Panel.AddView(ChartSources, 8dip, 384dip, Activity.Width - 16dip, 300dip)
+
+    ChartSources.BeginUpdate
+    ChartSources.ChartType = ChartSources.CHART_COLUMN
+    ChartSources.Title = "Annual energy mix"
+    ChartSources.ShowTitle = True
+    ChartSources.Subtitle = "Total generation by source (MWh)"
+    ChartSources.ShowSubtitle = True
+    ChartSources.Theme = ChartSources.THEME_NIGHTFALL
+    ChartSources.BackgroundColor = Colors.White
+    ChartSources.CornerRadius = 10
+    ChartSources.Elevation = 1
+    ChartSources.HeaderPaddingHorizontal = 12
+    ChartSources.HeaderPaddingTop = 8
+    ChartSources.HeaderPaddingBottom = 4
+    ChartSources.XTitle = "Energy source"
+    ChartSources.YTitle = "Generation (MWh)"
+    ChartSources.LegendEnabled = ChartSources.LEGEND_HIDE
+    ChartSources.DisableScroll = True
+    ChartSources.AxisMinimum = 0
+    ChartSources.BarWidth = 0.55
+    ChartSources.Animate = True
+    ChartSources.AnimationDuration = 650
+
+    Dim SourceSet As Int = ChartSources.AddDataSet("Generation", 0)
+    ChartSources.AddLabels(Array As String("Solar", "Wind", "Hydro", "Biomass"))
+    ChartSources.AddValues(SourceSet, Array As Double(2237, 1517, 1080, 642))
+    ChartSources.EndUpdate
+End Sub
+
+Private Sub BuildDailyChart
+    SectionDaily.Initialize("")
+    SectionDaily.Text = "03  Generation vs consumption"
+    SectionDaily.TextSize = 16
+    SectionDaily.TextColor = Colors.RGB(31, 48, 68)
+    SectionDaily.Typeface = Typeface.DEFAULT_BOLD
+    SectionDaily.Gravity = Gravity.CENTER_VERTICAL
+    DashboardScroll.Panel.AddView(SectionDaily, 16dip, 698dip, Activity.Width - 32dip, 28dip)
+
+    ChartDaily.Initialize("ChartDaily")
+    DashboardScroll.Panel.AddView(ChartDaily, 8dip, 728dip, Activity.Width - 16dip, 300dip)
+
+    ChartDaily.BeginUpdate
+    ChartDaily.ChartType = ChartDaily.CHART_LINE
+    ChartDaily.Title = "Daily energy balance"
+    ChartDaily.ShowTitle = True
+    ChartDaily.Subtitle = "Generation and consumption (MWh)"
+    ChartDaily.ShowSubtitle = True
+    ChartDaily.Theme = ChartDaily.THEME_NIGHTFALL
+    ChartDaily.BackgroundColor = Colors.White
+    ChartDaily.CornerRadius = 10
+    ChartDaily.Elevation = 1
+    ChartDaily.HeaderPaddingHorizontal = 12
+    ChartDaily.HeaderPaddingTop = 8
+    ChartDaily.HeaderPaddingBottom = 4
+    ChartDaily.XTitle = "Day"
+    ChartDaily.YTitle = "Energy (MWh)"
+    ChartDaily.LegendEnabled = ChartDaily.LEGEND_AUTO
+    ChartDaily.LegendPosition = ChartDaily.LEGEND_BOTTOM
+    ChartDaily.DisableScroll = True
+    ChartDaily.AllowZoom = True
+    ChartDaily.Animate = True
+    ChartDaily.AnimationDuration = 650
+
+    Dim GenerationSet As Int = ChartDaily.AddDataSet("Generation", 0)
+    Dim ConsumptionSet As Int = ChartDaily.AddDataSet("Consumption", 0)
+    ChartDaily.AddLabels(Array As String("Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"))
+    ChartDaily.AddValues(GenerationSet, Array As Double(182, 195, 201, 188, 215, 230, 221))
+    ChartDaily.AddValues(ConsumptionSet, Array As Double(176, 184, 210, 194, 205, 218, 225))
+    ChartDaily.EndUpdate
+End Sub
+
+Sub Activity_Resume
+End Sub
+
+Sub Activity_Pause (UserClosed As Boolean)
+End Sub

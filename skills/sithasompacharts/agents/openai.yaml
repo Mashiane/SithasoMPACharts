@@ -1,0 +1,4 @@
+interface:
+  display_name: "SithasoMPACharts"
+  short_description: "Design and create native B4A charts from requirements; verify wrapper APIs and audit results."
+  default_prompt: "Use the SithasoMPACharts skill. Follow its six-stage chart construction workflow. Create charts from requirements even when no matching demo exists; treat demos as optional API evidence, not required templates. Verify every wrapper API against the installed XML and report compilation/runtime validation honestly."
