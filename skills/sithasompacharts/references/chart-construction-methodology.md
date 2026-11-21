@@ -103,7 +103,10 @@ Evidence priority:
 For every nontrivial property, method, constant and event:
 - Verify the exact spelling and signature.
 - Verify parameter types and order.
-- Determine whether it is a Designer property, runtime property, method or event.
+- Determine whether it is a Designer property, code-only runtime property, method, field or event.
+- For Designer properties, verify the Java `@Property` annotation, getter/setter pair, XML `<designerProperty>` metadata, XML `<property>` descriptor, and the backing-field mapping in `applyDesignerProps`.
+- Check `ResetProperties` against Designer defaults. If the Visual Designer canvas is expected to preview the setting, verify the static `build` / `Spec.fromProps` path separately.
+- Do not report an XML runtime property as a missing Designer property when it is intentionally code-only (XML `<property>` without XML `<designerProperty>`).
 - Check version gates.
 - Check chart-family compatibility where documented or demonstrated.
 - Mark unresolved calls as assumptions; do not present them as verified.
