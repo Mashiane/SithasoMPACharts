@@ -179,7 +179,7 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - Independent chart-creation evaluations: evals/independent-chart-creation.json (12 prompts that prohibit demo-based implementation)
 - Independent evaluation procedure: evals/independent-chart-creation-README.md
 - Independent evaluation schema: evals/independent-chart-creation.schema.json
-- B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a
+- v10.19 Java / handbook / XML conformance audit: tests/b4a/API-CONFORMANCE-AUDIT-v10.19.md\n- B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a
 - B4A smoke-test execution matrix: tests/b4a/TEST-PLAN.md
 - Independent energy dashboard challenge: tests/b4a/INDEPENDENT-ENERGY-DASHBOARD.md
 - Independent energy dashboard B4A project: tests/b4a/IndependentEnergyDashboard.b4a
