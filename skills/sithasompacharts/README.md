@@ -51,6 +51,10 @@ Two separate behavioral suites are provided:
 
 Both are evaluation specifications, not evidence that a model passed. Their procedures and scoring rubrics are documented beside each suite. B4A compilation and device testing must be recorded separately.
 
+## Practical independent-creation challenge
+
+A runnable B4A challenge/reference implementation is included in tests/b4a/IndependentEnergyDashboard.b4a, with its prompt, acceptance criteria and manual test procedure in tests/b4a/INDEPENDENT-ENERGY-DASHBOARD.md. It creates a three-chart renewable-energy dashboard without using a numbered demo module as its implementation template. The project still requires compilation and device validation in B4A; it is not marked as runtime-tested.
+
 ## Source/version scope
 
 The handbook supplied with the repository targets SithasoMPACharts v10.19, B4A 12+ and MPAndroidChart 4.0.1. Always verify the installed library XML and Chart.GetVersion before using version-specific APIs.
