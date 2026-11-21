@@ -85,3 +85,19 @@ End Sub
 ```
 
 Do not assume the entire underlying MPAndroidChart event surface is exposed unchanged by the B4A wrapper.
+
+## Reset a chart before reconfiguring it
+
+The supplied v10.19 handbook lists `ResetProperties` as available from v10.2 and describes it as re-initializing/re-creating the chart view (handbook pp. 262 and 301). Use it when reusing one chart instance for a different chart configuration:
+
+```basic
+Chart.ResetProperties
+Chart.BeginUpdate
+Chart.ChartType = Chart.CHART_RADIAL
+' Set chart properties and add datasets / labels / values.
+Chart.EndUpdate
+```
+
+Do not treat `ClearValues` as an equivalent operation: it clears data, not the full set of chart properties. The smoke-test harness calls `ResetProperties` before each test's `BeginUpdate`. This reset pattern requires SithasoMPACharts v10.2+.
+
+The handbook confirms the method name and version gate but does not provide its parameter signature in the version-gate table. Confirm the installed `SithasoMPACharts.xml` if the target library reports a signature or availability error.
