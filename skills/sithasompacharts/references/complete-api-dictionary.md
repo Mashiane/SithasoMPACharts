@@ -6,7 +6,7 @@ The handbook states that the Designer dictionary contains 229 properties. Tables
 
 ## Installed v10.19 XML delta
 
-The handbook inventory below contains 229 properties. The installed v10.19 XML supplied for this audit declares 237 writable `<property>` entries. It additionally exposes these eight properties that are not listed in the handbook inventory:
+The handbook inventory below contains the 229 Visual Designer properties. The installed v10.19 XML contains 237 B4A `<property>` descriptors: the same 229 Designer properties plus eight code-only runtime properties. This is the intended distinction between XML `<designerProperty>` metadata and XML `<property>` getter/setter descriptors; the eight code-only entries are not missing Designer properties:
 
 | Property | XML type | XML description |
 |---|---|---|
@@ -19,14 +19,14 @@ The handbook inventory below contains 229 properties. The installed v10.19 XML s
 | `VisibleYRangeMax` | Float | Live visible Y-window ceiling |
 | `VisibleYRangeMin` | Float | Live visible Y-window floor |
 
-These eight entries are confirmed in the uploaded `SithasoMPACharts.xml` for class `com.sithaso.mpacharts.SithasoMPACharts`, version 10.19. All 237 XML property entries have one setter parameter. The XML is the B4A exposure contract; the handbook inventory remains a handbook transcription and must not be described as the complete installed property surface.
+These eight entries are confirmed in the uploaded `SithasoMPACharts.xml` for class `com.sithaso.mpacharts.SithasoMPACharts`, version 10.19. Each has a Java getter/setter pair and an XML `<property>` descriptor, but no `@DesignerProperties` declaration / XML `<designerProperty>` entry. Across the full surface, all 237 XML property descriptors have a setter parameter and matching Java getter/setter pair. The handbook Appendix A dictionary is specifically the complete Designer-property inventory, not a list of every code-only runtime property.
 
-## Reading this reference
+## Special runtime type contracts\n\n- `StackLabels` is a Designer `String` field, but its Java runtime setter accepts `Object` (B4A List, String array or comma-separated String) and its getter returns a B4A List. The XML runtime property type is `Object`; this is intentional flexibility, not a missing setter.\n- `RingCenterImage` is code-only (not a Visual Designer property). Its setter accepts `Object` (B4A Bitmap or Null) and its getter returns Bitmap; the XML runtime property type is `Object`.\n\n## Reading this reference
 
 - Types and defaults are transcribed from the handbook, not inferred from the Java engine.
 - Integer values shown in ranges are documented enum encodings. In B4A code, prefer the corresponding named constant.
 - Color value `0` often means a library default, transparent, or a documented fallback; consult the row description rather than assuming one universal meaning.
-- A property being present in the Designer dictionary does not automatically establish that it is a runtime-settable property. Verify the installed XML/API before using it in code.
+- In v10.19, each of the 229 Designer properties also has a Java getter/setter pair and an XML `<property>` descriptor, so it is available through B4A property syntax at runtime. The separate `<designerProperty>` entry supplies Visual Designer metadata. For another library version, verify both XML entries and the matching Java source.
 - The handbook targets SithasoMPACharts v10.19, B4A 12+, Android API 23+ and MPAndroidChart 4.0.1.
 
 ## Chart identity and title row
