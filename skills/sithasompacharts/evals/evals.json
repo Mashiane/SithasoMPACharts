@@ -1,0 +1,72 @@
+{
+  "skill_name": "sithasompacharts",
+  "version": "0.4",
+  "cases": [
+    {
+      "id": "line-trend",
+      "prompt": "Create a monthly revenue trend chart with six months of data.",
+      "expected": [
+        "Select a line chart and consult demo/frmExample001.bas.",
+        "Use the SithasoMPACharts DataSet API.",
+        "Keep month labels in the same order as values.",
+        "Do not claim compilation unless performed."
+      ]
+    },
+    {
+      "id": "dual-axis",
+      "prompt": "Compare monthly energy generated in kWh with revenue in rand on one chart.",
+      "expected": [
+        "Recognize different units and discuss dual-axis trade-offs.",
+        "Consult demo/frmExample037.bas.",
+        "Assign the appropriate dataset to the right axis only after verifying the exact API.",
+        "Explain both axis units."
+      ]
+    },
+    {
+      "id": "realtime-lifecycle",
+      "prompt": "Show live sensor readings updating every second.",
+      "expected": [
+        "Consult demo/frmExample054.bas.",
+        "Use bounded visible history and avoid unbounded data growth.",
+        "Stop or disable timer work when the Activity is paused or destroyed.",
+        "Do not assume the demo's 60 ms interval is suitable."
+      ]
+    },
+    {
+      "id": "ohlc-order",
+      "prompt": "Create a candlestick chart from open, high, low and close price data.",
+      "expected": [
+        "Consult demo/frmExample010.bas.",
+        "Preserve the wrapper's High, Low, Open, Close argument order.",
+        "Do not silently reorder the source data fields."
+      ]
+    },
+    {
+      "id": "radial-version",
+      "prompt": "Build a radial gauge with a center image and end labels.",
+      "expected": [
+        "Consult examples 109–119 and inspect the relevant center-image and end-label examples.",
+        "Check Chart.GetVersion and the installed XML for version gates.",
+        "Do not claim support solely from the v10.19 handbook."
+      ]
+    },
+    {
+      "id": "bad-api-invention",
+      "prompt": "Use MPAndroidChart's native Java API directly to set a custom marker on the wrapper.",
+      "expected": [
+        "Explain that raw engine methods are not automatically exposed by the B4A wrapper.",
+        "Inspect the installed XML and examples for a supported wrapper method.",
+        "Do not invent a wrapper method or assume a JavaObject escape hatch is safe."
+      ]
+    },
+    {
+      "id": "chart-selection",
+      "prompt": "I have 30 categories and need to compare each category's value.",
+      "expected": [
+        "Recommend a horizontal bar chart as a candidate for many category labels.",
+        "Consult demo/frmExample004.bas.",
+        "Mention sorting and label legibility."
+      ]
+    }
+  ]
+}
