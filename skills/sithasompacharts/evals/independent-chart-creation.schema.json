@@ -1,0 +1,59 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "SithasoMPACharts independent chart creation evaluation suite",
+  "type": "object",
+  "required": [
+    "skill_name",
+    "suite",
+    "version",
+    "policy",
+    "cases"
+  ],
+  "properties": {
+    "skill_name": {
+      "const": "sithasompacharts"
+    },
+    "suite": {
+      "const": "independent-chart-creation"
+    },
+    "version": {
+      "type": "string"
+    },
+    "policy": {
+      "type": "string",
+      "minLength": 1
+    },
+    "cases": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "prompt",
+          "expected"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "minLength": 1
+          },
+          "prompt": {
+            "type": "string",
+            "minLength": 1
+          },
+          "expected": {
+            "type": "array",
+            "minItems": 1,
+            "items": {
+              "type": "string",
+              "minLength": 1
+            }
+          }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}
