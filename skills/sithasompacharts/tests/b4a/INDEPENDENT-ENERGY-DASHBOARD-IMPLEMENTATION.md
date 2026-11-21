@@ -29,12 +29,12 @@ The implementation is derived from the dashboard requirements and the skill's ge
 - Dashboard section placement is calculated sequentially from a running vertical offset. The panel height is set from the final content position instead of a hard-coded total.
 - Shared chart presentation is centralized in `ConfigureCommonChart`; chart-specific type, axis, legend, and data configuration remain in dedicated subs.
 - Dataset handles are captured and then used for their matching values. Each chart has its own category labels and matching value cardinality.
-- Chart scrolling and zoom are disabled in this phone-first dashboard to reduce gesture competition with the parent vertical ScrollView. This favors reliable dashboard scrolling over in-chart inspection.
+- Chart-level scrolling is disabled by calling the parameterless `DisableScroll` method on each chart, reducing gesture competition with the parent vertical ScrollView. Zoom remains enabled on the two line charts.
 - No timer or streaming listener is used, so there is no background update lifecycle to manage in this static sample.
 
 ## API verification ledger
 
-Evidence available in this branch: README integration sample, skill's verified API patterns, handbook API catalog and complete API dictionary (handbook v10.19). The installed `SithasoMPACharts.xml` was not available in the repository test workspace. Therefore entries below are handbook/repository-evidence checked, not confirmed against the target machine's installed wrapper descriptor.
+Evidence checked for this audit: README integration sample, skill references, handbook v10.19, and the user-supplied installed `SithasoMPACharts.xml` (class `com.sithaso.mpacharts.SithasoMPACharts`, XML version 10.19). The XML declares 237 writable properties, 118 fields, 624 method entries (including generated accessors and internal hooks), and 11 events. The ledger below is checked against the XML declarations; compilation and runtime behavior remain untested.
 
 | Member / pattern | Use | Evidence | Status |
 |---|---|---|---|
@@ -46,7 +46,7 @@ Evidence available in this branch: README integration sample, skill's verified A
 | `HeaderPaddingHorizontal`, `HeaderPaddingTop`, `HeaderPaddingBottom` | Header spacing | Handbook dashboard guidance / dictionary | Handbook evidence |
 | `XTitle`, `YTitle` | Axis captions and units | README / handbook dictionary | Repository/handbook evidence |
 | `LegendEnabled`, `LEGEND_AUTO`, `LEGEND_HIDE` | Legend behavior | Handbook dictionary; mode is an enum, not Boolean | Handbook evidence |
-| `DisableScroll`, `AllowZoom` | Keep parent scroll interaction predictable | Handbook Chapter 11 dashboard guidance | Handbook evidence; verify actual gesture behavior on target device |
+| `DisableScroll`, `AllowZoom` | Disable chart scrolling while retaining line-chart zoom | XML declares `DisableScroll` as a parameterless method; `AllowZoom` is a Boolean property | XML verified; gesture behavior still needs device testing |
 | `Animate`, `AnimationDuration` | Entrance animation | Handbook dictionary / dashboard reference implementation | Handbook evidence |
 | `AddDataSet(Name, Color)` | Define dataset identity and color | README / verified API patterns | Repository evidence |
 | `AddLabels(Array As String)` | Category labels | README / verified API patterns | Repository evidence |
@@ -74,7 +74,7 @@ No raw MPAndroidChart Java APIs are called.
 | Requirements/design | Completed |
 | Source review | Completed |
 | Repository/handbook API evidence | Checked |
-| Installed XML/API descriptor | Not available here; pending local check |
+| Installed XML/API descriptor | Checked: v10.19; 237 properties, 118 fields, 11 events |
 | B4A compilation | Not run |
 | Android rendering | Not run |
 | Touch/scroll interaction | Not run |
@@ -86,8 +86,8 @@ No raw MPAndroidChart Java APIs are called.
 1. Open the project in B4A 14.20 (64-bit).
 2. Enable SithasoMPACharts in the Libraries tab.
 3. Confirm `mpChartLib.jar` and `kotlin-stdlib-2.0.21.jar` are in Additional Libraries.
-4. Compare each ledger member with the installed `SithasoMPACharts.xml`. In particular, confirm runtime exposure of visual properties used in `ConfigureCommonChart`.
-5. Compile the project. If a property is Designer-only or differs in the installed wrapper version, use the installed XML as authority and remove or adapt the call rather than guessing.
+4. Confirm that the installed XML and JAR both report the expected v10.19 build. The current source ledger was checked against the supplied v10.19 XML; re-check if the installed library differs.
+5. Compile the project. In particular, preserve `DisableScroll` as a method call (not a property assignment). If the installed wrapper version differs, use that installation's XML as authority and remove or adapt calls rather than guessing.
 6. Run on a phone or emulator. Confirm all three charts, values, labels, titles, legends and the complete vertical scroll.
 7. Check LogCat. For release readiness, apply the repository ProGuard/R8 keep rules and test a minified APK.
 
