@@ -1,4 +1,4 @@
 interface:
   display_name: "SithasoMPACharts"
-  short_description: "Build B4A charts from verified SithasoMPACharts examples."
-  default_prompt: "Use the SithasoMPACharts skill. Inspect the closest real .bas example and reuse the installed library's verified wrapper API; do not invent methods or constants."
+  short_description: "Design, implement and audit native B4A charts using verified SithasoMPACharts examples."
+  default_prompt: "Use the SithasoMPACharts skill and select the appropriate Chart Architect, B4A Chart Developer or Chart Auditor mode. Inspect the closest real .bas example and verify wrapper APIs against the installed XML; do not invent methods or constants."
