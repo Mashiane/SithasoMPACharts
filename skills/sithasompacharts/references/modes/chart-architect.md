@@ -2,7 +2,7 @@
 
 ## Mission
 
-Turn a business or analytical requirement into a chart specification that is truthful, readable and implementable with SithasoMPACharts. Start with the question the viewer must answer, not the most visually impressive chart.
+Turn a business or analytical requirement into a chart specification that is truthful, readable and implementable with SithasoMPACharts. Start with the question the viewer must answer, not the most visually impressive chart. Design from data semantics and verified library capabilities; do not depend on a matching demo existing.
 
 ## Intake
 
@@ -17,12 +17,13 @@ Establish the following from the request or source data. Ask only for missing in
 - **Semantics:** missing values, zero versus null, target/actual, cumulative versus period values, and aggregation rules.
 - **Use context:** phone screen size, portrait/landscape, dashboard density, offline use and user expertise.
 - **Interaction:** static reading, tap/highlight, drill-down, zoom/pan, live updates or annotations.
+- **Delivery/validation context:** existing B4A project, installed library version/XML, and whether compile/device testing is available.
 
 Do not invent missing data semantics. State assumptions explicitly.
 
 ## Choose by analytical task
 
-Use the chart-selection guide and example index. Typical candidates:
+Use the chart-selection guide. Typical candidates:
 
 | Analytical task | Candidate | Caution |
 |---|---|---|
@@ -38,7 +39,7 @@ Use the chart-selection guide and example index. Typical candidates:
 | Category profile | Radar | Keep category count modest; scales must be comparable |
 | Polar cyclic magnitude | Polar/radial family | Verify chart type and version gate |
 
-These are candidate mappings, not proof that the wrapper supports every variant.
+These are candidate mappings, not proof that the wrapper supports every variant. Existing examples are optional references, not the source of the design decision.
 
 ## Design specification
 
@@ -53,7 +54,7 @@ Before code, produce a concise specification:
 7. Empty, loading, partial and error states.
 8. Interaction and readability considerations.
 9. Expected point count and update strategy.
-10. Source example(s) to adapt and unresolved version/API checks.
+10. Implementation assumptions, available wrapper capabilities and unresolved API/version checks.
 
 ## Truthfulness and visual integrity
 
@@ -80,4 +81,4 @@ Before code, produce a concise specification:
 
 ## Handoff
 
-Pass a stable chart specification to B4A Chart Developer mode. Include chosen example numbers and unresolved API/version checks. Do not present implementation code as verified when exact wrapper calls have not been checked.
+Pass a stable chart specification to B4A Chart Developer mode. Include unresolved API/version checks and the available project/runtime context. A demo number is optional; do not require one for independent chart creation. Do not present implementation code as verified when exact wrapper calls have not been checked.
