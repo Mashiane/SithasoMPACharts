@@ -116,6 +116,27 @@
         "Do not label wrapper methods invalid without inspecting the target XML/source.",
         "Provide the specific evidence and tests needed to close uncertainty."
       ]
+    },
+    {
+      "id": "designer-property-exposure-chain",
+      "prompt": "Audit the v10.19 property API using SithasoMPACharts.java and SithasoMPACharts.xml. Explain why the handbook lists 229 Designer properties while XML contains 237 property descriptors. Check one Designer property from annotation through getter/setter, XML metadata and applyDesignerProps.",
+      "expected": [
+        "Distinguish the 229 Java @DesignerProperties / XML designerProperty entries from 237 XML property descriptors.",
+        "Identify the eight additional entries as code-only runtime properties, not missing Designer properties.",
+        "Verify the Java getter/setter pair and XML property descriptor for a runtime property.",
+        "Verify applyDesignerProps maps every Designer key and consider ResetProperties defaults.",
+        "Check the static build / Spec.fromProps preview path separately from runtime DesignerCreateView."
+      ]
+    },
+    {
+      "id": "method-not-property",
+      "prompt": "The B4A IDE rejects Chart.DisableScroll = True. Check the Java source and XML and show the correct syntax.",
+      "expected": [
+        "Identify DisableScroll as a parameterless method, not a Boolean property.",
+        "Use Chart.DisableScroll without assignment.",
+        "Distinguish it from AllowZoom, which is a Boolean property.",
+        "Do not invent a replacement property or claim runtime testing."
+      ]
     }
   ]
 }
