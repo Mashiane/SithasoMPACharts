@@ -100,8 +100,9 @@ Sub Tests_ItemClick (Position As Int, Value As Object)
 End Sub
 
 Private Sub PrepareChart(Title As String, ChartType As Int, XCaption As String, YCaption As String)
-    ' ResetProperties recreates/reinitializes the chart view (v10.2+).
-    ' ClearValues only removes data and is not a full configuration reset.
+    ' ResetProperties restores designer-default visual/behavioral properties
+    ' and clears custom limit lines and data (verified in v10.19 XML).
+    ' ClearValues clears dataset values in-place for new realtime data.
     Chart.ResetProperties
     Chart.BeginUpdate
     Chart.Title = Title
