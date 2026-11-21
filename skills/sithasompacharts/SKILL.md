@@ -40,7 +40,7 @@ For a full dashboard request, Architect → Developer → Auditor is the preferr
 2. Select a chart family using references/chart-selection.md.
 3. Find the closest numbered example in references/example-index.md.
 4. Fetch and read that exact .bas module before coding. The gallery title is a locator, not proof of implementation details.
-5. Verify every method, property, constant and event against the target XML or a working module. Do not invent wrapper APIs from MPAndroidChart Java APIs.
+5. Verify every method, property, constant and event against the target XML or a working module. Treat the installed XML as authoritative for method signatures and documented semantics; do not invent wrapper APIs from MPAndroidChart Java APIs. Distinguish `ClearValues` (clear dataset values in-place), `ClearData` (remove labels and series), and `ResetProperties` (restore designer-default visual/behavioral properties and clear custom limit lines/data) when present in the target XML.
 6. Adapt the smallest working example. Remove demo navigation, title labels, previous/next controls and sample UI chrome unless requested.
 7. Validate labels, values, order, units, missing data, signs, dataset identity, stacking and axis assignment.
 8. State the source example and assumptions. Clearly mark unverified combinations. Never claim compilation or device testing unless performed.
