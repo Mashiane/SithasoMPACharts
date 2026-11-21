@@ -1,0 +1,141 @@
+{
+  "skill_name": "sithasompacharts",
+  "suite": "independent-chart-creation",
+  "version": "1.0",
+  "policy": "Do not copy or adapt a numbered demo as the implementation base. Derive the chart design from the prompt and verify every wrapper API call against available target evidence. Existing examples may be consulted only as secondary API evidence.",
+  "cases": [
+    {
+      "id": "independent-basic-line",
+      "prompt": "Create a native B4A line chart for monthly household electricity consumption. Use six months of sample data, label the X-axis with months, show kWh on the Y-axis, include a title and legend, and provide complete code. Do not copy or adapt any numbered demo.",
+      "expected": [
+        "Derive a line-chart specification from the time-ordered monthly data.",
+        "Generate a B4A implementation without using a numbered demo as its code template.",
+        "Keep month labels aligned with the six values and label the unit as kWh.",
+        "Verify all wrapper members against target XML or clearly mark unavailable verification.",
+        "Separate source-level implementation claims from compile/render validation."
+      ]
+    },
+    {
+      "id": "independent-multiseries",
+      "prompt": "Build a B4A grouped column chart comparing actual and budgeted expenditure for six departments. Use rand values, distinct series identities and colours, and a readable phone layout. Do not copy or adapt a demo.",
+      "expected": [
+        "Model actual and budget as two distinct datasets with stable identities.",
+        "Choose a grouped comparison rather than stacking values that should be compared independently.",
+        "Preserve rand units and department label alignment.",
+        "Verify dataset creation and styling calls against the wrapper.",
+        "Explain mobile label-density decisions."
+      ]
+    },
+    {
+      "id": "independent-horizontal-ranking",
+      "prompt": "Create a horizontal bar chart ranking 15 municipalities by service requests received. Sort from highest to lowest and show the request count. Do not use an existing demo as a starting implementation.",
+      "expected": [
+        "Choose a horizontal bar chart for the long category labels.",
+        "Sort categories and values together without breaking their mapping.",
+        "Preserve integer request counts and provide a clear axis/measure label.",
+        "Avoid inventing label-formatting APIs.",
+        "Produce a standalone B4A implementation outline or code."
+      ]
+    },
+    {
+      "id": "independent-pie-integrity",
+      "prompt": "Create a chart showing the composition of a household's monthly expenses across five categories. The input contains category names and amounts in rand. Explain whether a pie chart is appropriate and implement the chosen chart. Do not copy a demo.",
+      "expected": [
+        "Check that the categories form a meaningful whole with a common denominator.",
+        "Choose a pie/donut only if the composition semantics are valid and category count is manageable.",
+        "If using a pie/donut, map category labels and amounts correctly.",
+        "If recommending another chart, explain the analytical reason and implement that choice.",
+        "Verify all used APIs against target evidence."
+      ]
+    },
+    {
+      "id": "independent-scatter",
+      "prompt": "Create a scatter chart showing the relationship between daily sunlight hours and solar energy generated in kWh for 30 days. Use numeric X/Y coordinates, axis titles and a short explanation of the relationship being examined. Do not adapt a demo.",
+      "expected": [
+        "Recognize the task as a relationship between two numeric variables.",
+        "Preserve numeric X and Y coordinates rather than converting X to category indices.",
+        "Use the verified scatter dataset/entry API and exact argument order.",
+        "Label both axes with their units.",
+        "Do not claim correlation or causation from chart appearance alone."
+      ]
+    },
+    {
+      "id": "independent-bubble",
+      "prompt": "Build a bubble chart for 20 projects: X is completion percentage, Y is budget variance in rand, and bubble size represents project team size. Do not use an existing demo as the implementation base.",
+      "expected": [
+        "Map X, Y and bubble size to their correct distinct meanings.",
+        "Preserve numeric coordinates and size values.",
+        "Verify the wrapper bubble-entry signature and argument order.",
+        "Explain the visual encoding and any normalization or size constraints.",
+        "Avoid implying that bubble area is a precise quantitative comparison unless the implementation supports it."
+      ]
+    },
+    {
+      "id": "independent-candlestick",
+      "prompt": "Create a B4A candlestick chart for ten days of share prices using Open, High, Low and Close fields. Validate the OHLC data and display the dates. Do not copy a demo.",
+      "expected": [
+        "Choose candlestick for OHLC financial data.",
+        "Validate High is at least Open and Close and Low is at most Open and Close.",
+        "Pass values in the wrapper's High, Low, Open, Close order.",
+        "Keep date labels aligned with candle entries.",
+        "Verify the exact wrapper API and avoid inventing date formatting members."
+      ]
+    },
+    {
+      "id": "independent-radar",
+      "prompt": "Create a radar chart comparing three teams across six performance dimensions, all scored from 0 to 100. Include three datasets and readable category labels. Do not use a demo as your code template.",
+      "expected": [
+        "Confirm that dimensions share a comparable scale and meaning.",
+        "Use three distinct datasets and six consistently ordered dimensions.",
+        "Set or verify a defensible 0–100 range only using supported APIs.",
+        "Discuss radar chart readability and its limits for precise comparisons.",
+        "Verify chart type and dataset APIs against target XML."
+      ]
+    },
+    {
+      "id": "independent-dual-axis-combo",
+      "prompt": "Create a combined chart showing daily solar generation in kWh as columns and daily revenue in rand as a line for the same 14 days. Decide whether dual axes are justified, label both units and implement the chart. Do not copy a demo.",
+      "expected": [
+        "Recognize that the measures have different units and scales.",
+        "Explain the trade-off between a combo chart with dual axes and separate charts.",
+        "If dual axes are chosen, assign datasets explicitly to the correct axes and label both units.",
+        "Verify combo, dataset and axis-assignment APIs and version gates.",
+        "Do not imply visual correlation merely because the two series overlap."
+      ]
+    },
+    {
+      "id": "independent-realtime",
+      "prompt": "Build a realtime B4A chart that receives a new temperature reading every two seconds. Keep only the latest 60 readings, show time progression and stop background chart updates when the Activity is paused. Do not adapt the realtime demo.",
+      "expected": [
+        "Define a bounded 60-point history and a two-second update cadence.",
+        "Use a verified incremental or replacement data path.",
+        "Preserve chronological ordering and time labels.",
+        "Stop timer work on Activity pause and resume deliberately.",
+        "Avoid unbounded accumulation and do not copy demo timing."
+      ]
+    },
+    {
+      "id": "independent-radial-kpi",
+      "prompt": "Create a radial KPI chart showing renewable energy target progress: 72% achieved against a 100% target. Include a meaningful title and an explanation of the range. Do not copy a radial demo.",
+      "expected": [
+        "Define the gauge range, current value and target semantics explicitly.",
+        "Verify radial chart support and version requirements against installed XML/runtime version.",
+        "Use only wrapper properties confirmed for the target installation.",
+        "Avoid presenting a decorative gauge without explaining the denominator.",
+        "Distinguish implementation from runtime rendering validation."
+      ]
+    },
+    {
+      "id": "independent-dashboard",
+      "prompt": "Design and implement a B4A energy dashboard with three separate charts: a monthly generation trend, a comparison of generation by energy source, and a daily generation-versus-consumption comparison. Use sample data and a phone-first layout. Do not reuse any demo module as the implementation base.",
+      "expected": [
+        "Define the analytical purpose and data model for each of the three charts.",
+        "Select chart types independently based on each question and data semantics.",
+        "Plan three chart instances and their parent layout without duplicate initialization.",
+        "Keep each chart's datasets, labels and units distinct and correctly mapped.",
+        "Address vertical space, scrolling and readability on a phone.",
+        "Provide a maintainable implementation structure and verify each wrapper call."
+      ]
+    }
+  ]
+}
