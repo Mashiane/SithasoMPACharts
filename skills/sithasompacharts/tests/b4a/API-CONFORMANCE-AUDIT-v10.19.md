@@ -115,11 +115,16 @@ The runtime Designer path and static Designer canvas path are separate:
 
 - `DesignerCreateView` calls `applyDesignerProps`, which reads all 229 Designer properties.
 - The static B4A Designer `build(...)` hook creates a `Spec` using `Spec.fromProps(props)`.
-- Source inspection found that `Spec.fromProps` reads 199 of the 229 Designer properties. The following 30 declared Designer properties are not copied into the static preview `Spec` and therefore appear to retain their `Spec` defaults in that preview path:
+- The originally supplied Java source mapped 199 of the 229 Designer properties into the static preview `Spec`. The 30 omitted keys are listed below.
+- A focused Java-source patch was prepared and applied to the supplied working copy. The patched `Spec.fromProps` now explicitly maps all 30 keys, bringing static preview input coverage to 229/229. The patch is preserved at [`patches/Spec-fromProps-preview-fix-v10.19.patch`](patches/Spec-fromProps-preview-fix-v10.19.patch).
+- A static regression check against the supplied Java source passed: 229/229 Designer keys are present in `Spec.fromProps`, including all 30 previously omitted keys.
+- Important repository boundary: the repository branch does not contain `SithasoMPACharts.java`; the patch is therefore stored as an apply-ready patch artifact, not represented as a committed edit to the library source file.
+
+The 30 keys originally omitted were:
 
 `AllowZoom`, `BarCornerRadius`, `CircleRadius`, `DragEnabled`, `DrawCirclesEnabled`, `DrawEntryLabels`, `DrawWebEnabled`, `EntryLabelColor`, `FillAlpha`, `FillColor`, `GridColor`, `HoleRadius`, `LabelCount`, `LegendFontSize`, `LegendFormSize`, `LegendTextColor`, `LineMode`, `LineWidth`, `NormalizeBubbleSize`, `ScatterShape`, `ScatterShapeSize`, `ShowRightAxis`, `SliceSpace`, `TitleColor`, `TransparentCircleRadius`, `ValueFontSize`, `ValueTextColor`, `WebColor`, `WebLineWidth`, `XAxisPosition`.
 
-Some are interaction-only, but several visibly affect the chart. This is a source-level preview-fidelity risk, not evidence that the runtime property setter is missing: `applyDesignerProps` does read all 229 keys. It should be checked in the B4A Visual Designer before deciding which omissions are intentional and which need to be added to `Spec.fromProps`.
+Some settings are interaction-only in a static preview, but several visibly affect chart rendering. The mapping fix makes the values available to the preview renderer; actual visual behavior still requires confirmation in the B4A Visual Designer.
 
 ## 7. Skill-framework alignment and changes
 
@@ -147,11 +152,12 @@ Updates made on this branch:
 | Java constants vs XML fields | Complete; 118/118 |
 | Java events vs XML events | Complete; 11/11 |
 | Skill's documented method patterns vs XML | Complete for the listed patterns |
-| Static Designer preview fidelity | Source gap identified; IDE preview test pending |
+| Static Designer preview mapping | Patched supplied Java source; static check passes 229/229; patch artifact stored in branch | 
+| B4A Visual Designer rendering | Pending; requires opening the library in the B4A IDE |
 | XML/JAR binary pair consistency | Not verified; JAR not supplied |
 | B4A compilation | Not run |
 | Android runtime/device tests | Not run |
 
 ## Recommended next action
 
-Open the library in the B4A Visual Designer and test representative properties from the 30-member preview list, especially visible settings such as `LineWidth`, `DrawCirclesEnabled`, `TitleColor`, `HoleRadius` and `LegendFontSize`. If the preview does not reflect them, update `Spec.fromProps` or explicitly document the properties that are intentionally runtime-only in preview.
+Apply `tests/b4a/patches/Spec-fromProps-preview-fix-v10.19.patch` to the library Java source, rebuild the library/XML/JAR, then open the updated library in the B4A Visual Designer. Verify visible properties such as `LineWidth`, `DrawCirclesEnabled`, `TitleColor`, `HoleRadius` and `LegendFontSize`; also check that interaction-only settings do not cause preview regressions. The source-level mapping check is complete, but IDE rendering, library compilation and device runtime remain unverified.
