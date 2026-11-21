@@ -29,7 +29,7 @@ The implementation is derived from the dashboard requirements and the skill's ge
 - Dashboard section placement is calculated sequentially from a running vertical offset. The panel height is set from the final content position instead of a hard-coded total.
 - Shared chart presentation is centralized in `ConfigureCommonChart`; chart-specific type, axis, legend, and data configuration remain in dedicated subs.
 - Dataset handles are captured and then used for their matching values. Each chart has its own category labels and matching value cardinality.
-- Chart-level scrolling is disabled by calling the parameterless `DisableScroll` method on each chart, reducing gesture competition with the parent vertical ScrollView. Zoom remains enabled on the two line charts.
+- Chart-level scrolling and zoom are disabled on all three charts to reduce gesture competition with the parent vertical ScrollView. Scrolling is disabled with the parameterless `DisableScroll` method; zoom is disabled with the writable Boolean `AllowZoom` property.
 - No timer or streaming listener is used, so there is no background update lifecycle to manage in this static sample.
 
 ## API verification ledger
@@ -38,21 +38,21 @@ Evidence checked for this audit: README integration sample, skill references, ha
 
 | Member / pattern | Use | Evidence | Status |
 |---|---|---|---|
-| `Initialize(EventName)` | Create each chart view | README integration recipe / verified API patterns | Repository evidence |
-| `BeginUpdate`, `EndUpdate` | Batch chart setup and data population | README / verified API patterns | Repository evidence |
-| `ChartType`, `CHART_LINE`, `CHART_COLUMN` | Select chart families | Handbook catalog and dictionary | Handbook evidence; confirm installed XML |
-| `Title`, `ShowTitle`, `Subtitle`, `ShowSubtitle` | Chart headings | Handbook dictionary and existing challenge source | Handbook/repository evidence |
-| `Theme`, `THEME_NIGHTFALL`, `BackgroundColor`, `CornerRadius`, `Elevation` | Card appearance | Handbook dashboard guidance / dictionary | Handbook evidence |
-| `HeaderPaddingHorizontal`, `HeaderPaddingTop`, `HeaderPaddingBottom` | Header spacing | Handbook dashboard guidance / dictionary | Handbook evidence |
-| `XTitle`, `YTitle` | Axis captions and units | README / handbook dictionary | Repository/handbook evidence |
-| `LegendEnabled`, `LEGEND_AUTO`, `LEGEND_HIDE` | Legend behavior | Handbook dictionary; mode is an enum, not Boolean | Handbook evidence |
-| `DisableScroll`, `AllowZoom` | Disable chart scrolling while retaining line-chart zoom | XML declares `DisableScroll` as a parameterless method; `AllowZoom` is a Boolean property | XML verified; gesture behavior still needs device testing |
-| `Animate`, `AnimationDuration` | Entrance animation | Handbook dictionary / dashboard reference implementation | Handbook evidence |
-| `AddDataSet(Name, Color)` | Define dataset identity and color | README / verified API patterns | Repository evidence |
-| `AddLabels(Array As String)` | Category labels | README / verified API patterns | Repository evidence |
-| `AddValues(DataSet, Array As Double)` | Values per dataset | README / verified API patterns | Repository evidence |
-| `DrawCirclesEnabled`, `LineWidth`, `CircleRadius` | Line chart visual hierarchy | Handbook dictionary | Handbook evidence |
-| `AxisMinimum`, `BarWidth`, `DrawValues`, `ValueFontSize` | Column chart formatting | Handbook dictionary and challenge source | Handbook/repository evidence |
+| `Initialize(EventName)` | Create each chart view | XML method: `Initialize(BA, EventName)`; README integration recipe | XML verified |
+| `BeginUpdate`, `EndUpdate` | Batch chart setup and data population | XML parameterless `void` methods; README | XML verified |
+| `ChartType`, `CHART_LINE`, `CHART_COLUMN` | Select chart families | XML property and field declarations | XML verified |
+| `Title`, `ShowTitle`, `Subtitle`, `ShowSubtitle` | Chart headings | XML property declarations | XML verified |
+| `Theme`, `THEME_NIGHTFALL`, `BackgroundColor`, `CornerRadius`, `Elevation` | Card appearance | XML property and field declarations | XML verified |
+| `HeaderPaddingHorizontal`, `HeaderPaddingTop`, `HeaderPaddingBottom` | Header spacing | XML property declarations | XML verified |
+| `XTitle`, `YTitle` | Axis captions and units | XML property declarations | XML verified |
+| `LegendEnabled`, `LEGEND_AUTO`, `LEGEND_HIDE` | Legend behavior | XML property and field declarations; mode is an enum, not Boolean | XML verified |
+| `DisableScroll`, `AllowZoom` | Disable chart scrolling and zoom | XML declares `DisableScroll` as a parameterless method; `AllowZoom` is a Boolean property | XML verified; gesture behavior still needs device testing |
+| `Animate`, `AnimationDuration` | Entrance animation | XML property declarations | XML verified |
+| `AddDataSet(Name, Color)` | Define dataset identity and color | XML: returns Int; parameters String, Int | XML verified |
+| `AddLabels(Array As String)` | Category labels | XML: accepts B4A List | XML verified |
+| `AddValues(DataSet, Array As Double)` | Values per dataset | XML: DataSetIndex Int, Values B4A List | XML verified |
+| `DrawCirclesEnabled`, `LineWidth`, `CircleRadius` | Line chart visual hierarchy | XML property declarations | XML verified |
+| `AxisMinimum`, `BarWidth`, `DrawValues`, `ValueFontSize` | Column chart formatting | XML property declarations | XML verified |
 
 No raw MPAndroidChart Java APIs are called.
 
