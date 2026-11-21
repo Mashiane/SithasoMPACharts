@@ -130,6 +130,8 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - Independent evaluation schema: evals/independent-chart-creation.schema.json
 - B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a
 - B4A smoke-test execution matrix: tests/b4a/TEST-PLAN.md
+- Independent energy dashboard challenge: tests/b4a/INDEPENDENT-ENERGY-DASHBOARD.md
+- Independent energy dashboard B4A project: tests/b4a/IndependentEnergyDashboard.b4a
 
 ## Response format when generating code
 
