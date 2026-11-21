@@ -1,6 +1,6 @@
 # SithasoMPACharts B4A smoke-test project
 
-A focused B4A project for manually exercising representative wrapper APIs used by the coding-agent skill.
+A focused B4A project for manually exercising representative wrapper APIs used by the coding-agent skill. Each in-place test calls `ResetProperties` before configuring the next chart so the harness exercises the library's documented full chart-view reset rather than only clearing data.
 
 ## Included cases
 
@@ -20,7 +20,7 @@ A focused B4A project for manually exercising representative wrapper APIs used b
 - SithasoMPACharts library installed and enabled in the Libraries tab.
 - mpChartLib and kotlin-stdlib-2.0.21 JAR dependencies, matching the source repository README/project.
 - Android minimum API 23; target API 35 in the manifest.
-- The installed library must expose the methods used by the selected tests. Radial chart support is version-gated (v10.0+ in the supplied handbook).
+- The installed library must expose the methods used by the selected tests. `ResetProperties` requires v10.2+; radial chart support requires v10.0+. The handbook targets v10.19.
 
 ## Open and run
 
@@ -35,7 +35,7 @@ A focused B4A project for manually exercising representative wrapper APIs used b
 
 - This project has not been compiled in this workflow.
 - No emulator or physical-device run has been performed.
-- The status label reports which test was selected; it is not an automated assertion that rendering succeeded.
+- The status label reports which test was selected; it is not an automated assertion that rendering succeeded. `ResetProperties` is called before each test's `BeginUpdate`; `ClearValues` is deliberately not used as a substitute for resetting chart properties.
 - It does not replace the full 127-example demo app or the library's regression suite.
 
 ## Record results
