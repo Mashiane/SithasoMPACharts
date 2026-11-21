@@ -1,0 +1,66 @@
+float valueLinePart2Length = 0.4f;
+        float valueLinePart1OffsetPercentage = 75f;
+        boolean useValueColorForLine = false;
+        boolean valueLineVariableLength = true;
+        float selectionShift = 9f;
+        int pieHighlightColor = 0;
+        float cubicIntensity = 0.2f;
+        float fillBaseline = 0f;
+        boolean fillBaselineEnabled = false;
+        boolean drawHighlightCircle = false;
+        float highlightCircleRadius = 5f;
+        float circleHoleRadius = -1f;
+        float scatterHoleRadius = 0f;
+        int scatterHoleColor = 0;
+        int candleShadowColor = 0;
+        int candleNeutralColor = 0;
+        boolean showCandleBar = true;
+        float radarCornerRadius = 0f;
+        int radarHaloFillColor = 0;
+        int radarHaloStrokeColor = 0;
+        int radarHaloAlpha = 76;
+        float radarHaloInnerRadius = 3f;
+        float radarHaloOuterRadius = 4f;
+        float radarHaloStrokeWidth = 2f;
+        int axisLineColor = 0;
+        float axisLineWidth = 1f;
+        boolean forceLabels = false;
+        boolean granularityEnabled = false;
+        int zeroLineColor = 0;
+        float zeroLineWidth = 1f;
+        float spaceTop = 10f;
+        float spaceBottom = 10f;
+        float spaceMin = 0f;
+        float spaceMax = 0f;
+        int yLabelPosition = YLABEL_OUTSIDE;
+        boolean avoidFirstLastClipping = false;
+        int legendOrientation = LEGEND_ORIENT_AUTO;
+        int legendDirection = LEGEND_DIR_AUTO;
+        float legendXEntrySpace = 6f;
+        float legendYEntrySpace = 0f;
+        float legendFormToTextSpace = 5f;
+        float legendStackSpace = 3f;
+        boolean drawLimitLinesBehindData = true;
+        boolean drawGridLinesBehindData = true;
+        float groupSpace = 0.20f;
+        float barSpace = 0.05f;
+        String drawOrder = "";
+        java.util.List<String> customLegendLabels = null;
+        java.util.List<Integer> customLegendColors = null;
+
+        /** Builds a settings object straight from a raw designer property map. */
+        static Spec fromProps(HashMap<String, Object> props) {
+            Spec s = new Spec();
+            if (props == null) return s;
+            s.chartType = intProp(props, "ChartType", s.chartType);
+            s.showTitle = boolProp(props, "ShowTitle", s.showTitle);
+            s.title = stringProp(props, "Title", s.title);
+            s.titleSize = floatProp(props, "TitleSize", s.titleSize);
+            s.titleBold = boolProp(props, "TitleBold", s.titleBold);
+            s.titleGravity = intProp(props, "TitleGravity", s.titleGravity);
+            if (s.titleGravity < TITLE_ALIGN_LEFT || s.titleGravity > TITLE_ALIGN_RIGHT) {
+                s.titleGravity = TITLE_ALIGN_LEFT;
+            }
+            s.subtitle = stringProp(props, "Subtitle", s.subtitle);
+            s.showSubtitle = boolProp(props, "ShowSubtitle", s.showSubtitle);
+            Object sc = props.get("SubtitleColor");
