@@ -4,7 +4,7 @@
 
 The cases in evals.json are behavioral regression prompts. They are designed to test whether an agent follows the skill's source-grounded workflow, not merely whether its answer sounds plausible.
 
-The current regression set has 12 cases. A separate independent-creation suite in independent-chart-creation.json contains 12 prompts that prohibit using a numbered demo as the implementation base. The two suites measure related but distinct capabilities: reliable reference-based development and independent chart construction.
+The current regression set has 14 cases. A separate independent-creation suite in independent-chart-creation.json contains 12 prompts that prohibit using a numbered demo as the implementation base. The two suites measure related but distinct capabilities: reliable reference-based development and independent chart construction.
 
 Neither evaluation file executes prompts or proves that a model passed.
 
@@ -77,6 +77,8 @@ Regardless of the numeric score, mark the run as a critical failure if the agent
 | mobile-layout | Architect | Phone viewport and time-label density |
 | designer-duplicate | Developer + Auditor | Designer/programmatic view lifecycle |
 | audit-confidence | Auditor | Evidence, confidence and limitations |
+| designer-property-exposure-chain | Auditor + Developer | Java annotation/getter-setter/XML/backing-field alignment and Designer/runtime property distinction |
+| method-not-property | Auditor + Developer | Correct method versus property syntax (`DisableScroll` versus `AllowZoom`) |
 
 ## Improvement loop
 
