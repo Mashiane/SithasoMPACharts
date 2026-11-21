@@ -100,7 +100,9 @@ Sub Tests_ItemClick (Position As Int, Value As Object)
 End Sub
 
 Private Sub PrepareChart(Title As String, ChartType As Int, XCaption As String, YCaption As String)
-    Chart.ClearValues
+    ' ResetProperties recreates/reinitializes the chart view (v10.2+).
+    ' ClearValues only removes data and is not a full configuration reset.
+    Chart.ResetProperties
     Chart.BeginUpdate
     Chart.Title = Title
     Chart.ShowTitle = True
@@ -193,6 +195,7 @@ Private Sub TestRadial
     Chart.CenterSubtext = "Completion"
     Chart.ValueFontSize = 11
     Chart.LegendEnabled = Chart.LEGEND_HIDE
+    Chart.LegendPosition = Chart.LEGEND_BOTTOM
     Dim DS As Int = Chart.AddDataSet("Completion", 0)
     Chart.AddValues(DS, Array As Double(68))
     Chart.AddLabels(Array As String("Completion"))
