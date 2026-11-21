@@ -21,6 +21,20 @@ Record the B4A version, SithasoMPACharts version (Chart.GetVersion where availab
 - Flag assumptions about behavior not demonstrated in the source.
 - For independent code, do not treat absence from the demos as proof that an API is invalid; use the installed XML/source as the authority.
 
+#### Designer-property exposure chain
+
+When the implementation uses Visual Designer properties, audit the full Java-to-XML path rather than checking the XML name alone:
+
+- Compare Java `@DesignerProperties` keys with XML `<designerProperty>` entries.
+- For each Designer property, verify a public Java getter/setter pair and a matching XML `<property>` descriptor.
+- Confirm `DesignerCreateView` / `applyDesignerProps` reads the key and writes the intended backing field.
+- Compare `ResetProperties` defaults with the Designer annotation defaults.
+- If a property is expected to affect the Visual Designer canvas, inspect the static `build` / `Spec.fromProps` path separately from runtime `DesignerCreateView`.
+- Distinguish code-only runtime properties (XML `<property>` with no `<designerProperty>`) from missing Designer properties.
+- Inspect special flexible-type properties such as `StackLabels` and `RingCenterImage`; Designer field type, XML runtime type, Java setter parameter and getter return type may intentionally differ.
+
+For v10.19 the reference counts are 229 Designer properties, 237 runtime XML properties (eight code-only), 118 fields, 624 methods and 11 events. These are audit baselines, not substitutes for checking the target installation.
+
 ### 3. Verify data integrity
 
 - Compare label count, order and meaning with corresponding values.
