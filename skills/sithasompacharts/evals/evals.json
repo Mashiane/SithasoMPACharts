@@ -1,6 +1,6 @@
 {
   "skill_name": "sithasompacharts",
-  "version": "0.4",
+  "version": "0.5",
   "cases": [
     {
       "id": "line-trend",
@@ -66,6 +66,55 @@
         "Recommend a horizontal bar chart as a candidate for many category labels.",
         "Consult demo/frmExample004.bas.",
         "Mention sorting and label legibility."
+      ]
+    },
+    {
+      "id": "architect-dual-units",
+      "prompt": "Design a mobile chart comparing daily solar energy in kWh with daily income in rand.",
+      "expected": [
+        "Enter Chart Architect mode and define the viewer question and data grain.",
+        "Identify unit mismatch and discuss separate charts versus dual axes.",
+        "Specify axis labels, dataset mapping and mobile readability.",
+        "Identify demo/frmExample037.bas as a reference without assuming every detail is verified."
+      ]
+    },
+    {
+      "id": "analytical-integrity",
+      "prompt": "Plot market share percentages for 18 competitors in a pie chart.",
+      "expected": [
+        "Challenge the pie chart choice because many slices are difficult to compare.",
+        "Recommend a ranked horizontal bar chart as a clearer candidate.",
+        "Confirm whether percentages share a common denominator and sum meaningfully.",
+        "Do not silently omit small competitors or convert missing values to zero."
+      ]
+    },
+    {
+      "id": "mobile-layout",
+      "prompt": "Create a dashboard chart with 48 hourly labels for a phone screen.",
+      "expected": [
+        "Address label density and narrow portrait viewport constraints.",
+        "Consider fewer ticks, aggregation or horizontal scrolling only if supported and appropriate.",
+        "Avoid relying on excessive label rotation as the only solution.",
+        "Keep the data's time ordering intact."
+      ]
+    },
+    {
+      "id": "designer-duplicate",
+      "prompt": "I placed the SithasoMPACharts view in the Visual Designer. Give me code to initialize and add another chart to the Activity.",
+      "expected": [
+        "Clarify whether a second chart is actually intended.",
+        "Avoid duplicate initialization/attachment of the Designer-created chart.",
+        "Use the generated Designer member for the existing chart."
+      ]
+    },
+    {
+      "id": "audit-confidence",
+      "prompt": "Audit this code, but I cannot provide my installed XML or library version.",
+      "expected": [
+        "Audit source-grounded behavior while marking target-installation API checks as unavailable.",
+        "Separate confirmed defects from risks and assumptions.",
+        "Do not label wrapper methods invalid without inspecting the target XML/source.",
+        "Provide the specific evidence and tests needed to close uncertainty."
       ]
     }
   ]
