@@ -93,7 +93,8 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - Chart selection: references/chart-selection.md
 - 127 example index: references/example-index.md
 - Verified API patterns: references/verified-api-patterns.md
-- Handbook API catalog: references/handbook-api-catalog.md — constants, 11 events, designer-property inventory and version gates
+- Complete Designer API dictionary: references/complete-api-dictionary.md — handbook property types, defaults, ranges, descriptions, constants, events and version gates
+- Handbook API catalog: references/handbook-api-catalog.md — compact navigational inventory
 - Production workflows: references/production-workflows.md
 - Troubleshooting: references/troubleshooting.md
 - Chart Architect mode: references/modes/chart-architect.md
