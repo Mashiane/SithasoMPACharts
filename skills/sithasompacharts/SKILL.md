@@ -174,12 +174,13 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - B4A Chart Developer mode: references/modes/b4a-chart-developer.md
 - Chart Auditor mode: references/modes/chart-auditor.md
 - Charting-skills research: references/charting-skills-research.md
-- Regression evaluations: evals/evals.json (12 cases)
+- Regression evaluations: evals/evals.json (14 cases)
 - Regression evaluation procedure: evals/README.md
 - Independent chart-creation evaluations: evals/independent-chart-creation.json (12 prompts that prohibit demo-based implementation)
 - Independent evaluation procedure: evals/independent-chart-creation-README.md
 - Independent evaluation schema: evals/independent-chart-creation.schema.json
-- v10.19 Java / handbook / XML conformance audit: tests/b4a/API-CONFORMANCE-AUDIT-v10.19.md\n- B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a
+- v10.19 Java / handbook / XML conformance audit: tests/b4a/API-CONFORMANCE-AUDIT-v10.19.md
+- Static Designer preview mapping patch (v10.19): tests/b4a/patches/Spec-fromProps-preview-fix-v10.19.patch\n- B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a
 - B4A smoke-test execution matrix: tests/b4a/TEST-PLAN.md
 - Independent energy dashboard challenge: tests/b4a/INDEPENDENT-ENERGY-DASHBOARD.md
 - Independent energy dashboard B4A project: tests/b4a/IndependentEnergyDashboard.b4a
