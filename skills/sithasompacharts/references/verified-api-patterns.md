@@ -86,9 +86,20 @@ End Sub
 
 Do not assume the entire underlying MPAndroidChart event surface is exposed unchanged by the B4A wrapper.
 
-## Reset a chart before reconfiguring it
+## Clear data or reset chart configuration
 
-The supplied v10.19 handbook lists `ResetProperties` as available from v10.2 and describes it as re-initializing/re-creating the chart view (handbook pp. 262 and 301). Use it when reusing one chart instance for a different chart configuration:
+The supplied `SithasoMPACharts.xml` for v10.19 confirms these parameterless methods and their distinct semantics:
+
+| Method | Exact documented effect | Use it when |
+|---|---|---|
+| `ClearValues` | Clears all values from chart datasets in-place, resetting it for new real-time data. | You want to retain the current chart/dataset configuration and start feeding new values. |
+| `ClearData` | Removes all labels and series, leaving the chart empty. | You want to remove the data structure but are not asking to restore every visual/behavioral setting. |
+| `ResetProperties` | Resets all visual and behavioral properties to their defaults (as defined in designer properties), and clears custom limit lines and data. | You are reusing the chart and want a broad configuration reset before setting it up again. |
+| `ResetToDefaults` | Alias for `ResetProperties`. | Use as an alternative name for the same reset operation. |
+
+`ResetProperties` has no parameters and returns `void` in the supplied v10.19 XML. The XML does not say that it recreates the permanent host view; do not describe it as a view recreation. The class-level documentation instead describes one permanent host view whose inner chart changes.
+
+Example for reconfiguring the existing chart instance:
 
 ```basic
 Chart.ResetProperties
@@ -98,6 +109,6 @@ Chart.ChartType = Chart.CHART_RADIAL
 Chart.EndUpdate
 ```
 
-Do not treat `ClearValues` as an equivalent operation: it clears data, not the full set of chart properties. The smoke-test harness calls `ResetProperties` before each test's `BeginUpdate`. This reset pattern requires SithasoMPACharts v10.2+.
+The smoke-test harness calls `ResetProperties` before each test's `BeginUpdate`. For real-time data replacement while retaining the current configuration, use `ClearValues` instead. For removing all labels and series without the broader reset, use `ClearData`.
 
-The handbook confirms the method name and version gate but does not provide its parameter signature in the version-gate table. Confirm the installed `SithasoMPACharts.xml` if the target library reports a signature or availability error.
+The supplied XML is the authoritative API evidence for this v10.19 installation. Check the target installation's own XML/version before assuming the same methods or semantics exist in another release.
