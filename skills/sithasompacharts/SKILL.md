@@ -104,6 +104,8 @@ For Visual Designer placement, add the view in the Designer and declare the gene
 - Evaluation cases: evals/evals.json — 12 regression prompts for chart choice, API correctness, analytical integrity and lifecycle safety
 - Evaluation procedure: evals/README.md — repeatable run instructions, scoring rubric and coverage map
 - Evaluation schema: evals/evals.schema.json — machine-readable validation contract
+- B4A smoke-test project: tests/b4a/ChartSmokeTests.b4a — focused project covering line, bar, candlestick, dual-axis, realtime, radial and radar charts
+- B4A smoke-test execution matrix: tests/b4a/TEST-PLAN.md — manual compile/runtime/lifecycle checklist
 
 ## Response format when generating code
 
