@@ -4,6 +4,23 @@
 
 The handbook states that the Designer dictionary contains 229 properties. Tables below preserve its property names, types, defaults, ranges and descriptions. A dash means the handbook does not specify additional values or description.
 
+## Installed v10.19 XML delta
+
+The handbook inventory below contains 229 properties. The installed v10.19 XML supplied for this audit declares 237 writable `<property>` entries. It additionally exposes these eight properties that are not listed in the handbook inventory:
+
+| Property | XML type | XML description |
+|---|---|---|
+| `DragOffsetX` | Float | Horizontal drag offset |
+| `DragOffsetY` | Float | Vertical drag offset |
+| `DrawHoleEnabled` | Boolean | Direct toggle for the pie/donut hole, independent of `IsDonut` |
+| `DrawOrder` | String | Combo draw order; comma-separated subset of BAR, BUBBLE, LINE, SCATTER, CANDLE |
+| `RingCenterImage` | Object | B4A Bitmap displayed in the radial centre; pass Null to clear |
+| `TouchEnabled` | Boolean | Master switch for touch gestures and taps |
+| `VisibleYRangeMax` | Float | Live visible Y-window ceiling |
+| `VisibleYRangeMin` | Float | Live visible Y-window floor |
+
+These eight entries are confirmed in the uploaded `SithasoMPACharts.xml` for class `com.sithaso.mpacharts.SithasoMPACharts`, version 10.19. All 237 XML property entries have one setter parameter. The XML is the B4A exposure contract; the handbook inventory remains a handbook transcription and must not be described as the complete installed property surface.
+
 ## Reading this reference
 
 - Types and defaults are transcribed from the handbook, not inferred from the Java engine.
