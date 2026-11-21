@@ -15,6 +15,17 @@ Sub Activity_Create(FirstTime As Boolean)
 End Sub
 ```
 
+## Method versus property syntax
+
+The v10.19 XML declares `DisableScroll` and `EnableScroll` as parameterless methods returning `void`, not Boolean properties. Invoke them without assignment:
+
+```basic
+Chart.DisableScroll
+Chart.EnableScroll
+```
+
+Do not write `Chart.DisableScroll = True`. The XML element determines B4A syntax: `<property>` is assigned/read as a property, while `<method>` is called as a method.
+
 ## DataSet lifecycle
 
 ```basic
