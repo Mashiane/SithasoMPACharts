@@ -8,7 +8,7 @@ Use this checklist after opening ChartSmokeTests.b4a in the B4A IDE. The project
 |---|---|
 | Date | |
 | B4A IDE version | |
-| SithasoMPACharts version | |
+| Chart.GetVersion output | |
 | SithasoMPACharts version | |
 | Android version / API | |
 | Device or emulator | |
