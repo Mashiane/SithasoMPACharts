@@ -30,6 +30,24 @@ Authority order for exact implementation:
 
 The handbook is specifically versioned for v10.19. Check Chart.GetVersion and the installed XML before using version-sensitive properties. Do not assume the current installation matches the book.
 
+## XML/API descriptor interpretation (mandatory)
+
+Treat the installed `SithasoMPACharts.xml` as a structured API contract, not merely a name lookup:
+
+- A `<property>` entry is used with B4A property syntax (for example, `Chart.AllowZoom = True`). Check its declared type and setter parameter.
+- A `<method>` entry is invoked as a method (for example, `Chart.DisableScroll`), with exactly the declared parameter count and types. Never convert a method into a property assignment based on its name.
+- A `<field>` entry is a constant/field (for example, `Chart.CHART_LINE`); use it in the documented argument or property position.
+- An `<event>` entry defines the callback name and exact event signature.
+- Do not treat generated `getX`/`setX` accessors, leading-underscore methods, or B4A designer/lifecycle hooks as ordinary application APIs. Use the corresponding declared `<property>` instead.
+- Record the XML class name and version. If the XML and binary/runtime version do not match, mark the API status unresolved rather than assuming compatibility.
+- If a member is absent from the installed XML, do not invent it from MPAndroidChart documentation or Java naming conventions. Use a verified wrapper method or report the capability as unavailable.
+
+For example, `DisableScroll` is a parameterless method in v10.19 XML, not a Boolean property:
+```basic
+Chart.DisableScroll
+Chart.EnableScroll
+```
+
 ## Guided workflow
 
 For substantial chart creation tasks, follow the six stages in [Independent chart construction methodology](references/chart-construction-methodology.md):
