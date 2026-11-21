@@ -8,6 +8,7 @@ Use this checklist after opening ChartSmokeTests.b4a in the B4A IDE. The project
 |---|---|
 | Date | |
 | B4A IDE version | |
+| SithasoMPACharts version (must be v10.2+ for ResetProperties) | |
 | SithasoMPACharts version | |
 | Android version / API | |
 | Device or emulator | |
@@ -25,12 +26,13 @@ Use this checklist after opening ChartSmokeTests.b4a in the B4A IDE. The project
 | SMK-03 | Candlestick OHLC | Five candles render; each uses High, Low, Open, Close ordering and valid bounds | | |
 | SMK-04 | Dual Y-axis | Temperature series uses left axis; pressure series uses right axis; both units are identifiable | | |
 | SMK-05 | Realtime | New sample appears approximately once per second; updates stop when Activity pauses | | |
-| SMK-06 | Radial | Radial completion ring and center text render on a supported library version (v10.0+) | | |
+| SMK-06 | Radial | Radial completion ring and center text render after `ResetProperties` on a supported library version (v10.2+ for reset; v10.0+ for radial) | | |
 | SMK-07 | Radar | Two five-point datasets render with the five category labels and web styling | | |
 
 ## Lifecycle checks
 
 - [ ] Select realtime and verify samples are added.
+- [ ] Switch between chart types repeatedly; verify `ResetProperties` clears prior chart configuration and no previous chart type's settings leak into the next test.
 - [ ] Background the app; verify the timer stops.
 - [ ] Return to the app; verify no background timer updates occurred.
 - [ ] Select a non-realtime test; verify realtime updates do not continue.
