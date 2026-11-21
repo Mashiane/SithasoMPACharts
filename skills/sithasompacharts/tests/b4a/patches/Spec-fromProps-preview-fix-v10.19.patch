@@ -1,66 +1,105 @@
-float valueLinePart2Length = 0.4f;
-        float valueLinePart1OffsetPercentage = 75f;
-        boolean useValueColorForLine = false;
-        boolean valueLineVariableLength = true;
-        float selectionShift = 9f;
-        int pieHighlightColor = 0;
-        float cubicIntensity = 0.2f;
-        float fillBaseline = 0f;
-        boolean fillBaselineEnabled = false;
-        boolean drawHighlightCircle = false;
-        float highlightCircleRadius = 5f;
-        float circleHoleRadius = -1f;
-        float scatterHoleRadius = 0f;
-        int scatterHoleColor = 0;
-        int candleShadowColor = 0;
-        int candleNeutralColor = 0;
-        boolean showCandleBar = true;
-        float radarCornerRadius = 0f;
-        int radarHaloFillColor = 0;
-        int radarHaloStrokeColor = 0;
-        int radarHaloAlpha = 76;
-        float radarHaloInnerRadius = 3f;
-        float radarHaloOuterRadius = 4f;
-        float radarHaloStrokeWidth = 2f;
-        int axisLineColor = 0;
-        float axisLineWidth = 1f;
-        boolean forceLabels = false;
-        boolean granularityEnabled = false;
-        int zeroLineColor = 0;
-        float zeroLineWidth = 1f;
-        float spaceTop = 10f;
-        float spaceBottom = 10f;
-        float spaceMin = 0f;
-        float spaceMax = 0f;
-        int yLabelPosition = YLABEL_OUTSIDE;
-        boolean avoidFirstLastClipping = false;
-        int legendOrientation = LEGEND_ORIENT_AUTO;
-        int legendDirection = LEGEND_DIR_AUTO;
-        float legendXEntrySpace = 6f;
-        float legendYEntrySpace = 0f;
-        float legendFormToTextSpace = 5f;
-        float legendStackSpace = 3f;
-        boolean drawLimitLinesBehindData = true;
-        boolean drawGridLinesBehindData = true;
-        float groupSpace = 0.20f;
-        float barSpace = 0.05f;
-        String drawOrder = "";
-        java.util.List<String> customLegendLabels = null;
-        java.util.List<Integer> customLegendColors = null;
-
-        /** Builds a settings object straight from a raw designer property map. */
-        static Spec fromProps(HashMap<String, Object> props) {
-            Spec s = new Spec();
-            if (props == null) return s;
-            s.chartType = intProp(props, "ChartType", s.chartType);
-            s.showTitle = boolProp(props, "ShowTitle", s.showTitle);
-            s.title = stringProp(props, "Title", s.title);
-            s.titleSize = floatProp(props, "TitleSize", s.titleSize);
-            s.titleBold = boolProp(props, "TitleBold", s.titleBold);
-            s.titleGravity = intProp(props, "TitleGravity", s.titleGravity);
-            if (s.titleGravity < TITLE_ALIGN_LEFT || s.titleGravity > TITLE_ALIGN_RIGHT) {
-                s.titleGravity = TITLE_ALIGN_LEFT;
-            }
-            s.subtitle = stringProp(props, "Subtitle", s.subtitle);
-            s.showSubtitle = boolProp(props, "ShowSubtitle", s.showSubtitle);
-            Object sc = props.get("SubtitleColor");
+--- a/SithasoMPACharts.java
++++ b/SithasoMPACharts.java
+@@ -10453,6 +10453,8 @@
+             s.chartType = intProp(props, "ChartType", s.chartType);
+             s.showTitle = boolProp(props, "ShowTitle", s.showTitle);
+             s.title = stringProp(props, "Title", s.title);
++            Object tc = props.get("TitleColor");
++            if (isColor(tc)) s.titleColor = toColor(tc);
+             s.titleSize = floatProp(props, "TitleSize", s.titleSize);
+             s.titleBold = boolProp(props, "TitleBold", s.titleBold);
+             s.titleGravity = intProp(props, "TitleGravity", s.titleGravity);
+@@ -10493,11 +10495,19 @@
+             s.legendEnabled = intProp(props, "LegendEnabled", s.legendEnabled);
+             s.legendPosition = intProp(props, "LegendPosition", s.legendPosition);
+             s.legendForm = intProp(props, "LegendForm", s.legendForm);
++            Object ltc = props.get("LegendTextColor");
++            if (isColor(ltc)) s.legendTextColor = toColor(ltc);
++            s.legendFontSize = floatProp(props, "LegendFontSize", s.legendFontSize);
++            s.legendFormSize = floatProp(props, "LegendFormSize", s.legendFormSize);
+             if (s.legendForm < LEGEND_FORM_DEFAULT || s.legendForm > LEGEND_FORM_LINE) {
+                 s.legendForm = LEGEND_FORM_CIRCLE;
+             }
+             s.legendDrawInside = boolProp(props, "LegendDrawInside", s.legendDrawInside);
+             s.drawGrid = boolProp(props, "DrawGrid", s.drawGrid);
++            Object gc = props.get("GridColor");
++            if (isColor(gc)) s.gridColor = toColor(gc);
++            s.showRightAxis = boolProp(props, "ShowRightAxis", s.showRightAxis);
++            s.xAxisPosition = intProp(props, "XAxisPosition", s.xAxisPosition);
++            s.labelCount = intProp(props, "LabelCount", s.labelCount);
+             s.axisMinimum = floatProp(props, "AxisMinimum", s.axisMinimum);
+             s.axisMaximum = floatProp(props, "AxisMaximum", s.axisMaximum);
+             s.axisPrefix = stringProp(props, "AxisPrefix", s.axisPrefix);
+@@ -10515,13 +10525,21 @@
+             s.yTitlePosition = intProp(props, "YTitlePosition", s.yTitlePosition);
+             s.xLabelAngle = floatProp(props, "XLabelAngle", s.xLabelAngle);
+             s.drawValues = boolProp(props, "DrawValues", s.drawValues);
++            Object vtc = props.get("ValueTextColor");
++            if (isColor(vtc)) s.valueTextColor = toColor(vtc);
++            s.valueFontSize = floatProp(props, "ValueFontSize", s.valueFontSize);
+             s.valueAngle = floatProp(props, "ValueAngle", s.valueAngle);
+             s.valueAlign = intProp(props, "ValueAlign", s.valueAlign);
+             if (s.valueAlign < VALUE_ALIGN_LEFT || s.valueAlign > VALUE_ALIGN_RIGHT) {
+                 s.valueAlign = VALUE_ALIGN_CENTER;
+             }
+             s.drawFilledEnabled = boolProp(props, "DrawFilledEnabled", s.drawFilledEnabled);
++            Object fc = props.get("FillColor");
++            if (isColor(fc)) s.fillColor = toColor(fc);
++            s.fillAlpha = clampAlpha(intProp(props, "FillAlpha", s.fillAlpha));
+             s.isDonut = boolProp(props, "IsDonut", s.isDonut);
++            s.holeRadius = floatProp(props, "HoleRadius", s.holeRadius);
++            s.transparentCircleRadius = floatProp(props, "TransparentCircleRadius", s.transparentCircleRadius);
++            s.sliceSpace = floatProp(props, "SliceSpace", s.sliceSpace);
++            s.drawEntryLabels = boolProp(props, "DrawEntryLabels", s.drawEntryLabels);
++            Object elc = props.get("EntryLabelColor");
++            if (isColor(elc)) s.entryLabelColor = toColor(elc);
+             s.centerText = stringProp(props, "CenterText", s.centerText);
+             s.stacked = boolProp(props, "Stacked", s.stacked);
+             Object slv = props.get("StackLabels");
+@@ -10535,11 +10553,16 @@
+                 s.barCornerStyle = BAR_CORNER_ALL;
+             }
+             s.barWidth = floatProp(props, "BarWidth", s.barWidth);
++            s.barCornerRadius = floatProp(props, "BarCornerRadius", s.barCornerRadius);
+             Object cv = props.get("CandleIncreasingColor");
+             if (isColor(cv)) s.candleIncreasingColor = toColor(cv);
+             cv = props.get("CandleDecreasingColor");
+             if (isColor(cv)) s.candleDecreasingColor = toColor(cv);
+             s.candleShadowWidth = floatProp(props, "CandleShadowWidth", s.candleShadowWidth);
++            s.lineWidth = floatProp(props, "LineWidth", s.lineWidth);
++            s.circleRadius = floatProp(props, "CircleRadius", s.circleRadius);
++            s.drawCirclesEnabled = boolProp(props, "DrawCirclesEnabled", s.drawCirclesEnabled);
++            s.lineMode = intProp(props, "LineMode", s.lineMode);
+             s.animate = boolProp(props, "Animate", s.animate);
+             s.animateXYEnabled = boolProp(props, "AnimateXYEnabled", s.animateXYEnabled);
+             s.animationDuration = intProp(props, "AnimationDuration", s.animationDuration);
+@@ -10611,6 +10634,8 @@
+                 if (s.stackGap == 0f) s.stackGap = 3.5f;
+             }
+             s.doubleTapZoom = boolProp(props, "DoubleTapZoom", s.doubleTapZoom);
++            s.allowZoom = boolProp(props, "AllowZoom", s.allowZoom);
++            s.dragEnabled = boolProp(props, "DragEnabled", s.dragEnabled);
+             s.theme = intProp(props, "Theme", s.theme);
+             s.animationEasing = clampEasing(intProp(props, "AnimationEasing", s.animationEasing));
+             s.dragDecelerationEnabled = boolProp(props, "DragDecelerationEnabled", s.dragDecelerationEnabled);
+@@ -10659,6 +10684,10 @@
+             s.valueLinePart1OffsetPercentage = floatProp(props, "ValueLinePart1OffsetPercentage", s.valueLinePart1OffsetPercentage);
+             s.useValueColorForLine = boolProp(props, "UseValueColorForLine", s.useValueColorForLine);
+             s.valueLineVariableLength = boolProp(props, "ValueLineVariableLength", s.valueLineVariableLength);
++            s.webLineWidth = floatProp(props, "WebLineWidth", s.webLineWidth);
++            Object wc = props.get("WebColor");
++            if (isColor(wc)) s.webColor = toColor(wc);
++            s.drawWebEnabled = boolProp(props, "DrawWebEnabled", s.drawWebEnabled);
+             s.webLineWidthInner = floatProp(props, "WebLineWidthInner", s.webLineWidthInner);
+             Object wci = props.get("WebColorInner");
+             if (isColor(wci)) s.webColorInner = toColor(wci);
+@@ -10678,6 +10707,9 @@
+             s.highlightCircleRadius = floatProp(props, "HighlightCircleRadius", s.highlightCircleRadius);
+             s.circleHoleRadius = floatProp(props, "CircleHoleRadius", s.circleHoleRadius);
+             s.scatterHoleRadius = floatProp(props, "ScatterHoleRadius", s.scatterHoleRadius);
++            s.scatterShape = intProp(props, "ScatterShape", s.scatterShape);
++            s.scatterShapeSize = floatProp(props, "ScatterShapeSize", s.scatterShapeSize);
++            s.normalizeBubbleSize = boolProp(props, "NormalizeBubbleSize", s.normalizeBubbleSize);
+             Object shc = props.get("ScatterHoleColor");
+             if (isColor(shc)) s.scatterHoleColor = toColor(shc);
+             Object csc = props.get("CandleShadowColor");
