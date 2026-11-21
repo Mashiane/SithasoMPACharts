@@ -54,6 +54,16 @@ Chart.AddDataSetStack(DS, Array As Double(16, 10))
 Chart.AddLabels(Array As String("Q1", "Q2", "Q3", "Q4"))
 ```
 
+## Designer metadata versus runtime property type
+
+`StackLabels` is declared as a `String` in the Visual Designer, but the v10.19 runtime property is typed as `Object` in XML. The Java setter accepts a B4A List, a String array or a comma-separated String; the getter returns a B4A List. This is why the documented pattern below is valid even though the Designer field type is String:
+
+```basic
+Chart.StackLabels = Array("Product", "Services")
+```
+
+Use the XML runtime property signature and Java setter implementation when determining what Basic code may pass. Do not infer runtime setter types from the Designer field type alone.
+
 ## Combo layers
 
 Example 011:
