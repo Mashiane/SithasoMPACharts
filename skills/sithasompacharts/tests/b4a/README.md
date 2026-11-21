@@ -1,6 +1,6 @@
 # SithasoMPACharts B4A smoke-test project
 
-A focused B4A project for manually exercising representative wrapper APIs used by the coding-agent skill. Each in-place test calls `ResetProperties` before configuring the next chart so the harness exercises the library's documented full chart-view reset rather than only clearing data.
+A focused B4A project for manually exercising representative wrapper APIs used by the coding-agent skill. Each in-place test calls `ResetProperties` before configuring the next chart. The v10.19 XML defines this as restoring visual and behavioral properties to designer defaults and clearing custom limit lines and data; it does not say that the permanent host view is recreated.
 
 ## Included cases
 
@@ -20,7 +20,7 @@ A focused B4A project for manually exercising representative wrapper APIs used b
 - SithasoMPACharts library installed and enabled in the Libraries tab.
 - mpChartLib and kotlin-stdlib-2.0.21 JAR dependencies, matching the source repository README/project.
 - Android minimum API 23; target API 35 in the manifest.
-- The installed library must expose the methods used by the selected tests. `ResetProperties` requires v10.2+; radial chart support requires v10.0+. The handbook targets v10.19.
+- The installed library must expose the methods used by the selected tests. The supplied v10.19 XML confirms the parameterless `ResetProperties` method; radial chart support requires v10.0+. Check the installed XML/version before relying on version-specific methods.
 
 ## Open and run
 
@@ -35,7 +35,7 @@ A focused B4A project for manually exercising representative wrapper APIs used b
 
 - This project has not been compiled in this workflow.
 - No emulator or physical-device run has been performed.
-- The status label reports which test was selected; it is not an automated assertion that rendering succeeded. `ResetProperties` is called before each test's `BeginUpdate`; `ClearValues` is deliberately not used as a substitute for resetting chart properties.
+- The status label reports which test was selected; it is not an automated assertion that rendering succeeded. `ResetProperties` is called before each test's `BeginUpdate`. `ClearValues` is a different operation: it clears dataset values in-place for new real-time data. `ClearData` removes labels and series but does not document a reset of visual/behavioral properties.
 - It does not replace the full 127-example demo app or the library's regression suite.
 
 ## Record results
