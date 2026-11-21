@@ -2,7 +2,7 @@
 
 ## Mission
 
-Review an existing SithasoMPACharts implementation for API correctness, data integrity, analytical validity, mobile usability, performance and lifecycle safety. Prioritize defects by impact and provide evidence for each finding.
+Review an existing SithasoMPACharts implementation for API correctness, data integrity, analytical validity, mobile usability, performance and lifecycle safety. Prioritize defects by impact and provide evidence for each finding. Apply the same audit standard whether code originated from a demo adaptation or an independent implementation.
 
 ## Audit sequence
 
@@ -19,6 +19,7 @@ Record the B4A version, SithasoMPACharts version (Chart.GetVersion where availab
 - Confirm specialized argument order for scatter, bubble, candlestick and stacked datasets.
 - Confirm designer properties are not mistakenly used as runtime data APIs.
 - Flag assumptions about behavior not demonstrated in the source.
+- For independent code, do not treat absence from the demos as proof that an API is invalid; use the installed XML/source as the authority.
 
 ### 3. Verify data integrity
 
